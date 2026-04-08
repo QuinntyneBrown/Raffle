@@ -7,6 +7,38 @@ import { ThemeRenderer } from '../themes/ThemeRenderer';
 
 const POLL_INTERVAL_MS = 10_000;
 
+const QR_BREAKPOINTS: [string, number][] = [
+  ['(min-width: 1200px)', 400],
+  ['(min-width: 768px)', 256],
+  ['(min-width: 576px)', 240],
+];
+const QR_SIZE_DEFAULT = 200;
+
+function useQrSize(): number {
+  const [size, setSize] = useState(() => {
+    for (const [query, s] of QR_BREAKPOINTS) {
+      if (window.matchMedia(query).matches) return s;
+    }
+    return QR_SIZE_DEFAULT;
+  });
+
+  useEffect(() => {
+    const queries = QR_BREAKPOINTS.map(([q]) => window.matchMedia(q));
+
+    function update() {
+      for (let i = 0; i < queries.length; i++) {
+        if (queries[i].matches) { setSize(QR_BREAKPOINTS[i][1]); return; }
+      }
+      setSize(QR_SIZE_DEFAULT);
+    }
+
+    for (const mql of queries) mql.addEventListener('change', update);
+    return () => { for (const mql of queries) mql.removeEventListener('change', update); };
+  }, []);
+
+  return size;
+}
+
 type PageState = 'loading' | 'no-active-raffle' | 'accepting-entries' | 'entries-closed';
 
 export function QRCodePage() {
@@ -14,6 +46,7 @@ export function QRCodePage() {
   const [state, setState] = useState<PageState>('loading');
   const stateRef = useRef(state);
   stateRef.current = state;
+  const qrSize = useQrSize();
 
   useEffect(() => {
     async function load() {
@@ -119,7 +152,7 @@ export function QRCodePage() {
         >
           <QRCodeSVG
             value={entryUrl}
-            size={220}
+            size={qrSize}
             level="M"
             marginSize={0}
           />
