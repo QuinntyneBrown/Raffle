@@ -25,6 +25,9 @@
   --warning-light: rgba(245, 158, 11, 0.125);
   --accent-glow-soft: rgba(168, 85, 247, 0.35);
   --accent-glow-strong: rgba(168, 85, 247, 0.7);
+  --winner-gradient-from: #F59E0B;
+  --winner-gradient-via: #EC4899;
+  --winner-gradient-to: #8B5CF6;
 }
 
 /*
@@ -51,6 +54,9 @@
   --warning-light: rgba(245, 158, 11, 0.125);
   --accent-glow-soft: rgba(239, 68, 68, 0.35);
   --accent-glow-strong: rgba(239, 68, 68, 0.7);
+  --winner-gradient-from: #FCD34D;
+  --winner-gradient-via: #FB923C;
+  --winner-gradient-to: #EF4444;
 }
 
 /*
@@ -77,6 +83,9 @@
   --warning-light: rgba(245, 158, 11, 0.125);
   --accent-glow-soft: rgba(59, 130, 246, 0.35);
   --accent-glow-strong: rgba(59, 130, 246, 0.7);
+  --winner-gradient-from: #60A5FA;
+  --winner-gradient-via: #A78BFA;
+  --winner-gradient-to: #34D399;
 }
 
 @keyframes glowPulse {
@@ -87,6 +96,12 @@
     box-shadow: 0 6px 40px var(--accent-glow-strong),
                 0 0 60px var(--accent-glow-soft);
   }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @layer base {
