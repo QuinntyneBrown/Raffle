@@ -163,7 +163,7 @@ export function DrawPage() {
 
   return (
     <>
-      <ThemeRenderer theme={raffle.theme} />
+      <ThemeRenderer theme={raffle.theme} presentationMode={raffle.presentationMode} />
       <CelebrationFX isActive={showCelebration} />
 
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-[var(--bg-primary)] relative">
@@ -211,7 +211,7 @@ export function DrawPage() {
         </button>
 
         {/* Heading */}
-        <h1 className="font-anton text-[28px] sm:text-[48px] text-center text-[var(--fg-primary)] mb-2 tracking-[2px] sm:tracking-[3px]">
+        <h1 className={`font-anton text-center text-[var(--fg-primary)] mb-2 tracking-[2px] sm:tracking-[3px] ${raffle.presentationMode ? 'text-[32px] sm:text-[56px]' : 'text-[28px] sm:text-[48px]'}`}>
           {raffle.heading}
         </h1>
 
@@ -231,15 +231,18 @@ export function DrawPage() {
 
         {/* Name display area */}
         <div
-          className="
+          className={`
             w-full sm:max-w-[500px] mx-auto
-            border border-[var(--accent)]/25 rounded-2xl
-            bg-[radial-gradient(circle,#1C1A20_30%,#151318_100%)]
+            rounded-2xl
             h-[140px] sm:h-[180px]
             mb-5 sm:mb-10
             flex items-center justify-center
-            shadow-[0_0_80px_6px_rgba(168,85,247,0.16),0_12px_160px_rgba(124,58,237,0.07),0_0_40px_rgba(168,85,247,0.06)]
-          "
+            ${
+              raffle.presentationMode
+                ? 'bg-[#111111] shadow-none border-2 border-[var(--accent)]'
+                : 'border border-[var(--accent)]/25 bg-[radial-gradient(circle,#1C1A20_30%,#151318_100%)] shadow-[0_0_80px_6px_rgba(168,85,247,0.16),0_12px_160px_rgba(124,58,237,0.07),0_0_40px_rgba(168,85,247,0.06)]'
+            }
+          `}
         >
           {state === 'cycling' || state === 'winner-revealed' ? (
             <AnimationEngine
@@ -255,12 +258,12 @@ export function DrawPage() {
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
-              <p className="font-anton text-4xl sm:text-[56px] text-[var(--fg-muted)] tracking-[2px] sm:tracking-[3px]">
+            <p className={`font-anton text-[var(--fg-muted)] tracking-[2px] sm:tracking-[3px] ${raffle.presentationMode ? 'text-5xl sm:text-[64px]' : 'text-4xl sm:text-[56px]'}`}>
                 ALL DRAWN!
               </p>
             </div>
           ) : (
-            <p className="font-anton text-4xl sm:text-[56px] text-[var(--fg-muted)] tracking-[2px] sm:tracking-[3px]">
+            <p className={`font-anton text-[var(--fg-muted)] tracking-[2px] sm:tracking-[3px] ${raffle.presentationMode ? 'text-5xl sm:text-[64px]' : 'text-4xl sm:text-[56px]'}`}>
               ???
             </p>
           )}
@@ -273,17 +276,19 @@ export function DrawPage() {
           className={`
             font-anton uppercase
             px-12 py-5 sm:px-12 sm:py-5
-            text-xl sm:text-2xl tracking-[2px]
+            tracking-[2px]
             rounded-full
-            bg-gradient-to-b from-[var(--accent-btn)] to-[var(--accent-btn-hover)]
-            shadow-[0_4px_24px_rgba(168,85,247,0.4)]
-            hover:shadow-[0_6px_32px_rgba(168,85,247,0.5)]
             text-white
             transition-all duration-300
             disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
             focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/30
             active:scale-95
-            ${state === 'ready' ? 'motion-safe:animate-[glowPulse_2.5s_ease-in-out_infinite]' : ''}
+            ${
+              raffle.presentationMode
+                ? 'text-2xl sm:text-3xl bg-[var(--accent)] hover:bg-[var(--accent-hover)] shadow-none border-2 border-[var(--accent)]'
+                : `text-xl sm:text-2xl bg-gradient-to-b from-[var(--accent-btn)] to-[var(--accent-btn-hover)] shadow-[0_4px_24px_rgba(168,85,247,0.4)] hover:shadow-[0_6px_32px_rgba(168,85,247,0.5)]`
+            }
+            ${state === 'ready' && !raffle.presentationMode ? 'motion-safe:animate-[glowPulse_2.5s_ease-in-out_infinite]' : ''}
           `}
           aria-live="polite"
         >

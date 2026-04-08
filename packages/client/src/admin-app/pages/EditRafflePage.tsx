@@ -34,6 +34,7 @@ export function EditRafflePage() {
   const [participantsText, setParticipantsText] = useState('');
   const [theme, setTheme] = useState<Theme>('cosmic');
   const [animationStyle, setAnimationStyle] = useState<AnimationStyle>('slot_machine');
+  const [presentationMode, setPresentationMode] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [hasDraws, setHasDraws] = useState(false);
 
@@ -47,6 +48,7 @@ export function EditRafflePage() {
         setSubheading(raffle.subheading || '');
         setTheme(raffle.theme as Theme);
         setAnimationStyle(raffle.animationStyle as AnimationStyle);
+        setPresentationMode(raffle.presentationMode ?? false);
 
         const drawn = raffle.participants.some((p) => p.isDrawn);
         setHasDraws(drawn);
@@ -79,6 +81,7 @@ export function EditRafflePage() {
       subheading: subheading || null,
       theme,
       animationStyle,
+      presentationMode,
     };
 
     // Only include participants if no draws have occurred
@@ -266,6 +269,32 @@ export function EditRafflePage() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Presentation Mode toggle */}
+            <div className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3">
+              <div>
+                <p className="text-[13px] font-semibold text-[var(--fg-primary)]">Presentation Mode</p>
+                <p className="text-[11px] text-[var(--fg-muted)]">Optimized for projectors — flat colors, higher contrast, larger text</p>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={presentationMode}
+                onClick={() => setPresentationMode(!presentationMode)}
+                className={`
+                  relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out
+                  focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50
+                  ${presentationMode ? 'bg-[var(--accent)]' : 'bg-[var(--bg-tertiary)]'}
+                `}
+              >
+                <span
+                  className={`
+                    pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out
+                    ${presentationMode ? 'translate-x-5' : 'translate-x-0'}
+                  `}
+                />
+              </button>
             </div>
           </div>
         </div>

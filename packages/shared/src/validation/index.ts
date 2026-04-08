@@ -12,6 +12,7 @@ export const createRaffleSchema = z.object({
   subheading: z.string().max(250).nullable().optional(),
   theme: z.enum(THEMES),
   animationStyle: z.enum(ANIMATION_STYLES),
+  presentationMode: z.boolean().optional().default(false),
   participants: z
     .array(z.string().trim().min(1))
     .min(2, 'At least 2 participants are required')
@@ -36,6 +37,7 @@ export const updateRaffleSchema = z.object({
   subheading: z.string().max(250).nullable().optional(),
   theme: z.enum(THEMES).optional(),
   animationStyle: z.enum(ANIMATION_STYLES).optional(),
+  presentationMode: z.boolean().optional(),
   participants: z
     .array(z.string().trim().min(1))
     .min(2, 'At least 2 participants are required')

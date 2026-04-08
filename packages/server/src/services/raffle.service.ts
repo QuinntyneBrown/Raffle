@@ -67,6 +67,7 @@ export async function listRaffles(): Promise<RaffleWithCounts[]> {
       subheading: r.subheading,
       theme: r.theme as RaffleWithCounts['theme'],
       animationStyle: r.animationStyle as RaffleWithCounts['animationStyle'],
+      presentationMode: r.presentationMode,
       isActive: r.isActive,
       createdBy: r.createdById,
       createdAt: r.createdAt.toISOString(),
@@ -102,6 +103,7 @@ export async function createRaffle(input: CreateRaffleInput, userId: string) {
         subheading: input.subheading ?? null,
         theme: input.theme,
         animationStyle: input.animationStyle,
+        presentationMode: input.presentationMode ?? false,
         createdById: userId,
         participants: {
           create: input.participants.map((name: string) => ({
@@ -140,6 +142,8 @@ export async function updateRaffle(id: string, input: UpdateRaffleInput) {
     if (raffleFields.theme !== undefined) updateData.theme = raffleFields.theme;
     if (raffleFields.animationStyle !== undefined)
       updateData.animationStyle = raffleFields.animationStyle;
+    if (raffleFields.presentationMode !== undefined)
+      updateData.presentationMode = raffleFields.presentationMode;
 
     if (newParticipants !== undefined) {
       const hasDrawnParticipants = existing.participants.some(
@@ -272,6 +276,7 @@ export async function getActiveRaffle(): Promise<ActiveRafflePublic | null> {
     subheading: raffle.subheading,
     theme: raffle.theme as ActiveRafflePublic['theme'],
     animationStyle: raffle.animationStyle as ActiveRafflePublic['animationStyle'],
+    presentationMode: raffle.presentationMode,
     participantNames: raffle.participants.map((p: { name: string }) => p.name),
     allDrawn,
     hasDrawingStarted,
@@ -336,6 +341,7 @@ function formatRaffleWithParticipants(raffle: {
   subheading: string | null;
   theme: string;
   animationStyle: string;
+  presentationMode: boolean;
   isActive: boolean;
   createdById: string;
   createdAt: Date;
@@ -360,6 +366,7 @@ function formatRaffleWithParticipants(raffle: {
     subheading: raffle.subheading,
     theme: raffle.theme,
     animationStyle: raffle.animationStyle,
+    presentationMode: raffle.presentationMode,
     isActive: raffle.isActive,
     createdBy: raffle.createdById,
     createdAt: raffle.createdAt.toISOString(),
