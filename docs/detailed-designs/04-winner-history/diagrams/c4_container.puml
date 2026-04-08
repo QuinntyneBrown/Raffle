@@ -1,0 +1,19 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Winner History - Container Diagram
+
+Person(visitor, "Event Attendee", "Views draw page")
+
+System_Boundary(sb, "Raffle Application") {
+    Container(spa, "React SPA", "React 19, Framer Motion", "WinnerHistory component shows drawn names")
+    Container(api, "Express API", "Node.js, Express", "Returns drawnNames in active raffle response")
+    ContainerDb(db, "PostgreSQL", "Prisma ORM", "Participants with isDrawn and drawOrder")
+}
+
+Rel(visitor, spa, "Opens draw page", "HTTPS")
+Rel(spa, api, "GET /api/public/active-raffle", "JSON/HTTPS")
+Rel(api, db, "Queries participants", "Prisma")
+
+@enduml

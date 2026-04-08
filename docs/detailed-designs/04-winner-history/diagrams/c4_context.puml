@@ -1,0 +1,12 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Winner History - System Context
+
+Person(visitor, "Event Attendee", "Views draw history on public page")
+System(raffle, "Raffle Application", "Live raffle with winner history display")
+
+Rel(visitor, raffle, "Views draw page", "HTTPS")
+
+@enduml

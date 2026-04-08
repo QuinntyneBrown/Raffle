@@ -1,0 +1,21 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Winner Name Gradient - Container Diagram
+
+Person(visitor, "Event Attendee", "Sees winner reveal")
+
+System_Boundary(sb, "Raffle Application") {
+    Container(spa, "React SPA", "React 19, Framer Motion", "Winner name rendered with gradient text effect")
+}
+
+Rel(visitor, spa, "Views winner reveal", "HTTPS")
+
+note right of spa
+  CSS gradient + ThemeRenderer
+  variable change only.
+  No backend interaction.
+end note
+
+@enduml

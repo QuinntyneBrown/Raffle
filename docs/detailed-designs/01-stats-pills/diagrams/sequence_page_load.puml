@@ -1,0 +1,24 @@
+@startuml sequence_page_load
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Stats Pills - Page Load Flow
+
+actor Visitor
+participant "DrawPage" as DP
+participant "api.ts" as API
+participant "Express API" as Server
+database "PostgreSQL" as DB
+
+Visitor -> DP: Opens draw page
+DP -> API: getActiveRaffle()
+API -> Server: GET /api/public/active-raffle
+Server -> DB: SELECT raffle + participants
+DB --> Server: raffle with participants
+Server -> Server: Compute totalCount,\nremainingCount
+Server --> API: { raffle: { ...totalCount, remainingCount } }
+API --> DP: ActiveRafflePublic
+DP -> DP: Render StatsPills\n(totalCount, remainingCount,\ndrawnCount)
+DP --> Visitor: Page with stat badges
+
+@enduml

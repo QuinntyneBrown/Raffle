@@ -1,0 +1,29 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Stats Pills - Data Model
+
+class ActiveRafflePublic {
+    +id: string
+    +heading: string
+    +subheading: string | null
+    +theme: Theme
+    +animationStyle: AnimationStyle
+    +participantNames: string[]
+    +allDrawn: boolean
+    +lastDrawnName: string | null
+    +totalCount: number <<new>>
+    +remainingCount: number <<new>>
+}
+
+class StatsPillsProps {
+    +totalCount: number
+    +remainingCount: number
+    +drawnCount: number
+}
+
+ActiveRafflePublic ..> StatsPillsProps : "derives drawnCount =\ntotalCount - remainingCount"
+
+@enduml

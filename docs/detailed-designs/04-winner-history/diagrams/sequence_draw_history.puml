@@ -1,0 +1,36 @@
+@startuml sequence_draw_history
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Winner History - Draw and History Update
+
+actor Visitor
+participant "DrawPage" as DP
+participant "WinnerHistory" as WH
+participant "api.ts" as API
+participant "Express API" as Server
+database "PostgreSQL" as DB
+
+Visitor -> DP: Clicks "Draw a Name"
+DP -> API: drawName()
+API -> Server: POST /api/public/draw
+Server -> DB: Atomic draw transaction
+DB --> Server: { name, drawOrder }
+Server --> API: DrawResult
+API --> DP: { name: "Alice", drawOrder: 3 }
+
+DP -> DP: Start cycling animation
+DP -> DP: Animation completes
+
+DP -> DP: Append "Alice" to\nlocal drawnNames
+DP -> WH: Updated drawnNames prop
+WH -> WH: Render new entry\nwith slide-in animation
+
+DP -> API: getActiveRaffle()
+API -> Server: GET /api/public/active-raffle
+Server -> DB: Query raffle + participants
+DB --> Server: Updated data
+Server --> API: { drawnNames: [..., "Alice"] }
+API --> DP: Refresh raffle state
+
+@enduml

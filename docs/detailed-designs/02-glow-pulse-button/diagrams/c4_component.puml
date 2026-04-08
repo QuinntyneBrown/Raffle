@@ -1,0 +1,17 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Glow-Pulse Button - Component Diagram
+
+Container_Boundary(spa, "React SPA") {
+    Component(drawPage, "DrawPage", "React Component", "Applies glow-pulse class when state === 'ready'")
+    Component(themeRenderer, "ThemeRenderer", "React Component", "Sets --accent-glow-soft and --accent-glow-strong CSS vars")
+    Component(css, "index.css", "Stylesheet", "Defines @keyframes glowPulse animation")
+}
+
+Rel(drawPage, themeRenderer, "Renders theme vars")
+Rel(drawPage, css, "Uses animate-[glowPulse] class")
+Rel(themeRenderer, css, "Sets CSS custom properties")
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Stats Pills - Container Diagram
+
+Person(visitor, "Event Attendee", "Views draw page")
+
+System_Boundary(sb, "Raffle Application") {
+    Container(spa, "React SPA", "React 19, Vite, Tailwind", "Public draw page with StatsPills component")
+    Container(api, "Express API", "Node.js, Express", "Serves active raffle data including counts")
+    ContainerDb(db, "PostgreSQL", "Prisma ORM", "Stores raffles and participants")
+}
+
+Rel(visitor, spa, "Opens draw page", "HTTPS")
+Rel(spa, api, "GET /api/public/active-raffle", "JSON/HTTPS")
+Rel(api, db, "Queries raffle + participants", "Prisma")
+
+@enduml

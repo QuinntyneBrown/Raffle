@@ -1,0 +1,23 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Winner History - Component Diagram
+
+Container_Boundary(spa, "React SPA") {
+    Component(drawPage, "DrawPage", "React Component", "Manages drawnNames state, passes to WinnerHistory")
+    Component(winnerHistory, "WinnerHistory", "React Component", "Renders numbered, scrollable list of winners")
+    Component(api, "api.ts", "API Client", "Fetches active raffle with drawnNames array")
+}
+
+Container_Boundary(server, "Express API") {
+    Component(publicRoutes, "public.routes.ts", "Express Router", "GET /api/public/active-raffle")
+    Component(raffleService, "raffle.service.ts", "Service", "Computes drawnNames from participants")
+}
+
+Rel(drawPage, winnerHistory, "drawnNames prop")
+Rel(drawPage, api, "getActiveRaffle()")
+Rel(api, publicRoutes, "HTTP GET")
+Rel(publicRoutes, raffleService, "getActiveRaffle()")
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Spinning Draw Icon - Component Diagram
+
+Container_Boundary(spa, "React SPA") {
+    Component(drawPage, "DrawPage", "React Component", "Conditionally renders spinning SVG when state=cycling")
+    Component(svg, "Spinner SVG", "Inline SVG", "Circular arc with animate-spin CSS class")
+}
+
+Rel(drawPage, svg, "Renders inside button\nwhen state === 'cycling'")
+
+note right of svg
+  Uses Tailwind animate-spin
+  Respects prefers-reduced-motion
+  via motion-safe: prefix
+end note
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Spinning Draw Icon - Container Diagram
+
+Person(visitor, "Event Attendee", "Views draw button animation")
+
+System_Boundary(sb, "Raffle Application") {
+    Container(spa, "React SPA", "React 19, Tailwind CSS 4", "Draw button with spinning SVG icon during cycling state")
+}
+
+Rel(visitor, spa, "Views draw page", "HTTPS")
+
+note right of spa
+  SVG + CSS animation only.
+  No backend changes.
+end note
+
+@enduml

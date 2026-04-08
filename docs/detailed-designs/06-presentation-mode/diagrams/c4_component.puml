@@ -1,0 +1,27 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Presentation Mode - Component Diagram
+
+Container_Boundary(spa, "React SPA — Public") {
+    Component(drawPage, "DrawPage", "React Component", "Passes presentationMode to ThemeRenderer and applies conditional styles")
+    Component(themeRenderer, "ThemeRenderer", "React Component", "Overrides CSS vars when presentationMode=true:\nflat bg, no shadows, thicker borders")
+    Component(api, "api.ts", "API Client", "Fetches raffle with presentationMode flag")
+}
+
+Container_Boundary(backoffice, "React SPA — Admin") {
+    Component(editForm, "RaffleEditForm", "React Component", "Toggle switch for presentationMode")
+}
+
+Container_Boundary(server, "Express API") {
+    Component(adminRoutes, "admin.routes.ts", "Express Router", "PUT /api/admin/raffles/:id")
+    Component(raffleService, "raffle.service.ts", "Service", "Persists presentationMode to DB")
+}
+
+Rel(drawPage, themeRenderer, "theme, presentationMode props")
+Rel(drawPage, api, "getActiveRaffle()")
+Rel(editForm, adminRoutes, "PUT with presentationMode")
+Rel(adminRoutes, raffleService, "updateRaffle()")
+
+@enduml

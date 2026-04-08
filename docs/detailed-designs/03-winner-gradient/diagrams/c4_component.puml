@@ -1,0 +1,16 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Winner Name Gradient - Component Diagram
+
+Container_Boundary(spa, "React SPA") {
+    Component(animEngine, "AnimationEngine", "React Component", "Applies gradient classes when isFinished=true")
+    Component(themeRenderer, "ThemeRenderer", "React Component", "Sets --winner-gradient-from/via/to CSS vars per theme")
+    Component(celebFx, "CelebrationFX", "React Component", "Confetti particles (unchanged)")
+}
+
+Rel(animEngine, themeRenderer, "Reads gradient CSS vars")
+Rel(animEngine, celebFx, "Fires concurrently on reveal")
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Glow-Pulse Button - Container Diagram
+
+Person(visitor, "Event Attendee", "Views draw page on projector")
+
+System_Boundary(sb, "Raffle Application") {
+    Container(spa, "React SPA", "React 19, Tailwind CSS 4", "Draw button with CSS glow-pulse animation")
+}
+
+Rel(visitor, spa, "Views draw page", "HTTPS")
+
+note right of spa
+  CSS-only change.
+  No backend interaction.
+end note
+
+@enduml

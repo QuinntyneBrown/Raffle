@@ -1,0 +1,23 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Presentation Mode - Container Diagram
+
+Person(admin, "Administrator", "Toggles presentation mode")
+Person(visitor, "Event Attendee", "Views projected display")
+
+System_Boundary(sb, "Raffle Application") {
+    Container(spa, "React SPA", "React 19, Tailwind", "ThemeRenderer applies flat styling overrides")
+    Container(backoffice, "Back Office SPA", "React 19", "Toggle switch in raffle edit form")
+    Container(api, "Express API", "Node.js, Express", "Persists presentationMode boolean")
+    ContainerDb(db, "PostgreSQL", "Prisma ORM", "Raffle table with presentationMode column")
+}
+
+Rel(admin, backoffice, "Edits raffle", "HTTPS")
+Rel(backoffice, api, "PUT /api/admin/raffles/:id", "JSON/HTTPS")
+Rel(api, db, "UPDATE raffle", "Prisma")
+Rel(visitor, spa, "Views draw page", "HTTPS")
+Rel(spa, api, "GET /api/public/active-raffle", "JSON/HTTPS")
+
+@enduml

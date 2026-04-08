@@ -1,0 +1,15 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Presentation Mode - System Context
+
+Person(admin, "Administrator", "Enables presentation mode per raffle")
+Person(visitor, "Event Attendee", "Views high-contrast draw page on projector")
+
+System(raffle, "Raffle Application", "Live raffle with optional presentation mode")
+
+Rel(admin, raffle, "Configures presentation mode", "HTTPS")
+Rel(visitor, raffle, "Views draw page", "HTTPS")
+
+@enduml

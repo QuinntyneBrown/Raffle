@@ -1,0 +1,41 @@
+@startuml sequence_enable_presentation
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Presentation Mode - Admin Enable Flow
+
+actor Admin
+participant "RaffleEditForm" as Form
+participant "api.ts" as API
+participant "Express API" as Server
+database "PostgreSQL" as DB
+
+actor Visitor
+participant "DrawPage" as DP
+participant "ThemeRenderer" as TR
+
+== Admin enables presentation mode ==
+
+Admin -> Form: Toggles presentation mode ON
+Form -> API: updateRaffle(id, { presentationMode: true })
+API -> Server: PUT /api/admin/raffles/:id
+Server -> DB: UPDATE raffle SET\npresentationMode=true
+DB --> Server: OK
+Server --> API: Updated raffle
+API --> Form: Success
+
+== Public page renders with presentation mode ==
+
+Visitor -> DP: Opens draw page
+DP -> API: getActiveRaffle()
+API -> Server: GET /api/public/active-raffle
+Server -> DB: SELECT raffle
+DB --> Server: { presentationMode: true, ... }
+Server --> API: ActiveRafflePublic
+API --> DP: { presentationMode: true }
+
+DP -> TR: theme="cosmic",\npresentationMode=true
+TR -> TR: Apply flat CSS overrides:\nbg=#000, no shadows,\nborder-2, larger text
+DP --> Visitor: High-contrast flat UI
+
+@enduml

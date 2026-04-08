@@ -1,0 +1,42 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Presentation Mode - Data Model
+
+class Raffle {
+    +id: string
+    +name: string
+    +heading: string
+    +subheading: string | null
+    +theme: Theme
+    +animationStyle: AnimationStyle
+    +isActive: boolean
+    +presentationMode: boolean <<new>>
+    +createdBy: string
+    +createdAt: DateTime
+    +updatedAt: DateTime
+}
+
+class ActiveRafflePublic {
+    +id: string
+    +heading: string
+    +subheading: string | null
+    +theme: Theme
+    +animationStyle: AnimationStyle
+    +participantNames: string[]
+    +allDrawn: boolean
+    +lastDrawnName: string | null
+    +presentationMode: boolean <<new>>
+}
+
+class ThemeRendererProps {
+    +theme: Theme
+    +presentationMode: boolean <<new>>
+}
+
+Raffle ..> ActiveRafflePublic : "maps to public view"
+ActiveRafflePublic ..> ThemeRendererProps : "passes display config"
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Stats Pills - System Context
+
+Person(visitor, "Event Attendee", "Views the public raffle draw page")
+Person(admin, "Administrator", "Configures raffle settings")
+
+System(raffle, "Raffle Application", "Live raffle drawing with animated name reveals")
+System_Ext(browser, "Web Browser", "Renders the SPA and displays stat counts")
+
+Rel(visitor, raffle, "Views draw page", "HTTPS")
+Rel(admin, raffle, "Manages raffles", "HTTPS")
+Rel(raffle, browser, "Serves SPA + API", "HTTPS")
+
+@enduml

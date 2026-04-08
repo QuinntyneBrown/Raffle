@@ -1,0 +1,23 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Stats Pills - Component Diagram
+
+Container_Boundary(spa, "React SPA") {
+    Component(drawPage, "DrawPage", "React Component", "Orchestrates draw flow and passes counts to StatsPills")
+    Component(statsPills, "StatsPills", "React Component", "Renders three pill badges: registered, remaining, winners")
+    Component(api, "api.ts", "API Client", "Fetches active raffle with totalCount and remainingCount")
+}
+
+Container_Boundary(server, "Express API") {
+    Component(publicRoutes, "public.routes.ts", "Express Router", "GET /api/public/active-raffle")
+    Component(raffleService, "raffle.service.ts", "Service", "Computes totalCount and remainingCount from participants")
+}
+
+Rel(drawPage, statsPills, "Passes counts as props")
+Rel(drawPage, api, "getActiveRaffle()")
+Rel(api, publicRoutes, "HTTP GET")
+Rel(publicRoutes, raffleService, "getActiveRaffle()")
+
+@enduml
