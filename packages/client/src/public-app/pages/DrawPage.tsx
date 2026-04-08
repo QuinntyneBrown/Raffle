@@ -6,6 +6,7 @@ import { AnimationEngine } from '../animations/AnimationEngine';
 import { CelebrationFX } from '../animations/CelebrationFX';
 import { AudioEngine } from '../audio/AudioEngine';
 import { ThemeRenderer } from '../themes/ThemeRenderer';
+import { StatsPills } from '../components/StatsPills';
 
 type DrawState = 'loading' | 'no-active-raffle' | 'ready' | 'cycling' | 'winner-revealed' | 'all-drawn';
 
@@ -211,6 +212,13 @@ export function DrawPage() {
             {raffle.subheading}
           </p>
         )}
+
+        {/* Stats pills */}
+        <StatsPills
+          totalCount={raffle.totalCount}
+          remainingCount={raffle.remainingCount}
+          drawnCount={raffle.totalCount - raffle.remainingCount}
+        />
 
         {/* Name display area */}
         <div

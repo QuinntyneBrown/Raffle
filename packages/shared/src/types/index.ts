@@ -47,6 +47,8 @@ export interface ActiveRafflePublic {
   participantNames: string[];
   allDrawn: boolean;
   lastDrawnName: string | null;
+  totalCount: number;
+  remainingCount: number;
 }
 
 export interface AdminUser {
