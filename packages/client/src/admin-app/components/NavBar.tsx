@@ -16,14 +16,14 @@ export function NavBar() {
   return (
     <header className="h-16 border-b border-[var(--border)] bg-[var(--bg-secondary)] flex items-center justify-between px-8">
       {/* Logo */}
-      <h1 className="font-anton text-xl text-[var(--accent)] tracking-wider">
+      <h1 className="font-anton text-xl text-[var(--accent)] tracking-[3px]">
         RAFFLE
       </h1>
 
       {/* User info + logout */}
       <div className="flex items-center gap-4">
         {user && (
-          <span className="hidden sm:inline text-sm text-[var(--fg-muted)]">
+          <span className="hidden sm:inline text-[13px] text-[var(--fg-secondary)]">
             {user.email}
           </span>
         )}

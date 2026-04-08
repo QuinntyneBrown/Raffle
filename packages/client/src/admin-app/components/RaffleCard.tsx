@@ -28,9 +28,9 @@ export function RaffleCard({ raffle, onActivate, onDeactivate, onDelete }: Raffl
 
       {/* Stats as inline text */}
       <div className="flex gap-6 mb-3">
-        <span className="text-sm text-[var(--fg-muted)]">{raffle.totalParticipants} participants</span>
-        <span className="text-sm text-[var(--fg-muted)]">{raffle.drawnCount} drawn</span>
-        <span className="text-sm text-[var(--fg-muted)]">{raffle.remainingCount} remaining</span>
+        <span className="text-[13px] text-[var(--fg-muted)]">{raffle.totalParticipants} participants</span>
+        <span className="text-[13px] text-[var(--fg-muted)]">{raffle.drawnCount} drawn</span>
+        <span className="text-[13px] text-[var(--fg-muted)]">{raffle.remainingCount} remaining</span>
       </div>
 
       {/* Actions */}
@@ -63,7 +63,7 @@ export function RaffleCard({ raffle, onActivate, onDeactivate, onDelete }: Raffl
           variant="ghost"
           size="sm"
           onClick={() => onDelete(raffle.id)}
-          className="text-[var(--error)] hover:text-red-300"
+          className="text-[var(--error)] hover:text-[var(--error)]"
         >
           Delete
         </Button>

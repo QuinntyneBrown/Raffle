@@ -85,13 +85,13 @@ export function Dialog({ open, onClose, title, description, icon, children, acti
         aria-modal="true"
         aria-labelledby="dialog-title"
         aria-describedby={description ? 'dialog-description' : undefined}
-        className="relative z-10 w-full max-w-[480px] rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border)] p-6 shadow-2xl"
+        className="relative z-10 w-full max-w-[480px] rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border)] p-6 shadow-[0_16px_40px_rgba(0,0,0,0.38),0_0_100px_rgba(168,85,247,0.06)]"
       >
         {icon && <div className="mb-5">{icon}</div>}
 
         <h2
           id="dialog-title"
-          className="text-lg font-semibold text-[var(--fg-primary)]"
+          className="text-lg font-bold text-[var(--fg-primary)]"
         >
           {title}
         </h2>
@@ -99,7 +99,7 @@ export function Dialog({ open, onClose, title, description, icon, children, acti
         {description && (
           <p
             id="dialog-description"
-            className="mt-2 text-sm text-[var(--fg-muted)]"
+            className="mt-2 text-sm text-[var(--fg-secondary)]"
           >
             {description}
           </p>

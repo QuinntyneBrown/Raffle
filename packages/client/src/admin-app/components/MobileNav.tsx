@@ -17,11 +17,11 @@ export function MobileNav() {
   return (
     <div className="lg:hidden">
       {/* Mobile top bar */}
-      <div className="h-14 border-b border-[var(--border)] bg-[var(--bg-secondary)] flex items-center px-4 justify-between">
+      <div className="border-b border-[var(--border)] bg-[var(--bg-secondary)] flex items-center py-3 px-4 justify-between">
         {/* Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors"
+          className="text-[var(--fg-primary)] hover:text-[var(--fg-primary)] transition-colors"
           aria-label="Toggle menu"
         >
           <svg
@@ -51,12 +51,12 @@ export function MobileNav() {
         </button>
 
         {/* Logo */}
-        <h1 className="font-anton text-lg text-[var(--accent)] tracking-wider">
+        <h1 className="font-anton text-lg text-[var(--accent)] tracking-[3px]">
           RAFFLE
         </h1>
 
         {/* User icon */}
-        <div className="p-2 text-[var(--fg-muted)]">
+        <div className="text-[var(--fg-secondary)]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -81,7 +81,7 @@ export function MobileNav() {
             className="fixed inset-0 z-40 bg-black/50"
             onClick={() => setIsOpen(false)}
           />
-          <div className="fixed top-14 left-0 right-0 z-50 bg-[var(--bg-secondary)] border-b border-[var(--border)] shadow-xl">
+          <div className="fixed top-12 left-0 right-0 z-50 bg-[var(--bg-secondary)] border-b border-[var(--border)] shadow-xl">
             <nav className="p-4 space-y-1">
               <NavLink
                 to="/admin"
@@ -122,7 +122,7 @@ export function MobileNav() {
               )}
               <button
                 onClick={handleLogout}
-                className="text-sm text-red-400 hover:text-red-300 transition-colors"
+                className="text-sm text-[var(--error)] hover:text-[var(--error)] transition-colors"
               >
                 Logout
               </button>

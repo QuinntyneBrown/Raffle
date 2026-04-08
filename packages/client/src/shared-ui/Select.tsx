@@ -23,7 +23,7 @@ export function Select({
       {label && (
         <label
           htmlFor={selectId}
-          className="block text-sm font-medium text-[var(--fg-secondary)] mb-1.5"
+          className="block text-[13px] font-medium text-[var(--fg-secondary)] mb-1.5"
         >
           {label}
         </label>
@@ -31,7 +31,7 @@ export function Select({
       <select
         id={selectId}
         className={`
-          w-full px-3 py-2 rounded-lg appearance-none
+          w-full px-3.5 py-2.5 rounded-lg appearance-none
           bg-[var(--bg-secondary)] border text-[var(--fg-primary)]
           focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent
           transition-colors duration-200 cursor-pointer
@@ -47,7 +47,7 @@ export function Select({
         ))}
       </select>
       {error && (
-        <p className="mt-1 text-sm text-[var(--error)]">{error}</p>
+        <p className="mt-1 text-xs text-[var(--error)]">{error}</p>
       )}
     </div>
   );

@@ -9,8 +9,8 @@ const navItems = [
       // layout-dashboard icon
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -33,8 +33,8 @@ const navItems = [
       // circle-plus icon
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -56,8 +56,8 @@ const navItems = [
       // settings icon
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -91,16 +91,20 @@ export function Sidebar() {
             to={item.to}
             end={item.end}
             className={({ isActive }) =>
-              `flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium transition-colors duration-200
+              `group flex items-center gap-2.5 px-5 py-2.5 text-sm transition-colors duration-200
               ${
                 isActive
-                  ? 'bg-[var(--accent-light)] text-[var(--accent)]'
+                  ? 'bg-[var(--accent-light)] text-[var(--accent)] font-medium'
                   : 'text-[var(--fg-muted)] hover:text-[var(--fg-primary)] hover:bg-[var(--bg-primary)]/50'
               }`
             }
           >
-            {item.icon}
-            {item.label}
+            {({ isActive }) => (
+              <>
+                {item.icon}
+                <span className={isActive ? '' : 'text-[var(--fg-secondary)] group-hover:text-[var(--fg-primary)]'}>{item.label}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

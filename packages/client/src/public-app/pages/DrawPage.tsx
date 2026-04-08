@@ -207,7 +207,7 @@ export function DrawPage() {
 
         {/* Subheading */}
         {raffle.subheading && (
-          <p className="text-lg sm:text-xl md:text-2xl text-center text-[var(--fg-muted)] mb-8 sm:mb-12 max-w-2xl">
+          <p className="text-lg sm:text-xl md:text-2xl text-center text-[var(--fg-secondary)] mb-8 sm:mb-12 max-w-2xl">
             {raffle.subheading}
           </p>
         )}
@@ -216,13 +216,13 @@ export function DrawPage() {
         <div
           className="
             w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto
-            border border-[var(--border)] rounded-2xl
-            bg-[var(--bg-secondary)]
+            border border-[var(--accent)]/25 rounded-2xl
+            bg-[radial-gradient(circle,#1C1A20_30%,#151318_100%)]
             px-6 py-12 sm:py-16 md:py-20
             mb-8 sm:mb-12
             min-h-[160px] sm:min-h-[180px]
             flex items-center justify-center
-            shadow-[0_0_40px_rgba(168,85,247,0.1)]
+            shadow-[0_0_80px_6px_rgba(168,85,247,0.16),0_12px_160px_rgba(124,58,237,0.07),0_0_40px_rgba(168,85,247,0.06)]
           "
         >
           {state === 'cycling' || state === 'winner-revealed' ? (

@@ -97,29 +97,30 @@ export function RaffleDetailPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">{raffle.name}</h1>
+          <h1 className="font-anton text-[28px] text-[var(--fg-primary)] tracking-[1px]">{raffle.name}</h1>
           <Badge variant={raffle.isActive ? 'active' : 'inactive'}>
             {raffle.isActive ? 'Active' : 'Inactive'}
           </Badge>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button
-            variant="secondary"
+            variant="ghost"
             size="sm"
             onClick={() => navigate(`/admin/raffles/${id}/edit`)}
           >
             Edit
           </Button>
           <Button
-            variant="secondary"
+            variant="ghost"
             size="sm"
             onClick={() => setResetDialogOpen(true)}
             disabled={drawnCount === 0}
+            className="text-[var(--warning)] hover:text-[var(--warning)]"
           >
             Reset Draws
           </Button>
           {raffle.isActive ? (
-            <Button variant="secondary" size="sm" onClick={handleDeactivate}>
+            <Button variant="ghost" size="sm" onClick={handleDeactivate} className="text-[var(--error)] hover:text-[var(--error)]">
               Deactivate
             </Button>
           ) : (
@@ -131,68 +132,70 @@ export function RaffleDetailPage() {
       </div>
 
       {/* Stats cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5 text-center">
-          <p className="text-3xl font-bold text-[var(--fg-primary)]">{totalParticipants}</p>
-          <p className="text-sm text-[var(--fg-muted)] mt-1">Total Participants</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
+          <p className="text-[32px] font-bold text-[var(--accent)] font-mono">{totalParticipants}</p>
+          <p className="text-[13px] text-[var(--fg-muted)] mt-1">Total Participants</p>
         </div>
-        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5 text-center">
-          <p className="text-3xl font-bold text-[var(--accent)]">{drawnCount}</p>
-          <p className="text-sm text-[var(--fg-muted)] mt-1">Names Drawn</p>
+        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
+          <p className="text-[32px] font-bold text-[var(--success)] font-mono">{drawnCount}</p>
+          <p className="text-[13px] text-[var(--fg-muted)] mt-1">Names Drawn</p>
         </div>
-        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5 text-center">
-          <p className="text-3xl font-bold text-[var(--success)]">{remainingCount}</p>
-          <p className="text-sm text-[var(--fg-muted)] mt-1">Remaining</p>
+        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
+          <p className="text-[32px] font-bold text-[var(--fg-primary)] font-mono">{remainingCount}</p>
+          <p className="text-[13px] text-[var(--fg-muted)] mt-1">Remaining</p>
         </div>
       </div>
 
       {/* Two columns: Participants | Draw History */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Participants list */}
-        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
-          <h2 className="text-lg font-semibold text-[var(--fg-primary)] mb-4">Participants</h2>
-          <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
-            {participants.map((p) => (
+        <div>
+          <h2 className="text-base font-semibold text-[var(--fg-primary)] mb-3">Participants</h2>
+          <div className="flex flex-col gap-1 max-h-[400px] overflow-y-auto pr-1">
+            {participants.map((p, index) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between py-2 px-3 rounded-lg bg-[var(--bg-primary)]/50"
+                className={`flex items-center justify-between py-1.5 px-2.5 rounded-md ${
+                  index % 2 === 1 ? 'bg-[var(--bg-secondary)]' : ''
+                }`}
               >
-                <span
-                  className={`text-sm ${
-                    p.isDrawn ? 'text-[var(--fg-muted)] line-through' : 'text-[var(--fg-primary)]'
-                  }`}
-                >
+                <span className="text-[13px] text-[var(--fg-primary)]">
                   {p.name}
                 </span>
-                <Badge variant={p.isDrawn ? 'warning' : 'active'}>
+                <span className={`text-[11px] ${
+                  p.isDrawn ? 'text-[var(--success)]' : 'text-[var(--fg-muted)]'
+                }`}>
                   {p.isDrawn ? 'Drawn' : 'Available'}
-                </Badge>
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Draw History */}
-        <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
-          <h2 className="text-lg font-semibold text-[var(--fg-primary)] mb-4">Draw History</h2>
+        <div>
+          <h2 className="text-base font-semibold text-[var(--fg-primary)] mb-3">Draw History</h2>
           {drawHistory.length === 0 ? (
             <p className="text-sm text-[var(--fg-muted)] text-center py-8">
               No names have been drawn yet.
             </p>
           ) : (
-            <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+            <div className="flex flex-col gap-1.5 max-h-[400px] overflow-y-auto pr-1">
               {drawHistory.map((p, index) => (
                 <div
                   key={p.id}
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg bg-[var(--bg-primary)]/50"
+                  className="flex items-center justify-between py-2 px-3 rounded-lg bg-[var(--bg-secondary)]"
                 >
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--accent-light)] flex items-center justify-center text-sm font-bold text-[var(--accent)]">
-                    {index + 1}
-                  </span>
-                  <span className="text-sm text-[var(--fg-primary)] flex-1">{p.name}</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-[13px] font-semibold text-[var(--accent)] font-mono">
+                      #{index + 1}
+                    </span>
+                    <span className="text-sm text-[var(--fg-primary)]">{p.name}</span>
+                  </div>
                   {p.drawnAt && (
                     <span className="text-xs text-[var(--fg-muted)]">
-                      {new Date(p.drawnAt).toLocaleTimeString()}
+                      {new Date(p.drawnAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                     </span>
                   )}
                 </div>
@@ -213,7 +216,7 @@ export function RaffleDetailPage() {
         confirmVariant="danger"
         loading={resetLoading}
         icon={
-          <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-[var(--warning-light)] flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -224,7 +227,7 @@ export function RaffleDetailPage() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-yellow-500"
+              className="text-[var(--warning)]"
             >
               <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
               <path d="M3 3v5h5" />

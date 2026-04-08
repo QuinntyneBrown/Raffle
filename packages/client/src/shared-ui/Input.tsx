@@ -21,7 +21,7 @@ export function Input({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-medium text-[var(--fg-secondary)] mb-1.5"
+          className="block text-[13px] font-medium text-[var(--fg-secondary)] mb-1.5"
         >
           {label}
         </label>
@@ -29,7 +29,7 @@ export function Input({
       <input
         id={inputId}
         className={`
-          w-full px-3 py-2 rounded-lg
+          w-full px-3.5 py-2.5 rounded-lg
           bg-[var(--bg-secondary)] border text-[var(--fg-primary)]
           placeholder:text-[var(--fg-muted)]
           focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent
@@ -40,7 +40,7 @@ export function Input({
         {...props}
       />
       {error && (
-        <p className="mt-1 text-sm text-[var(--error)]">{error}</p>
+        <p className="mt-1 text-xs text-[var(--error)]">{error}</p>
       )}
     </div>
   );

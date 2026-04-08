@@ -125,7 +125,7 @@ export function EditRafflePage() {
 
   return (
     <div>
-      <h1 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide mb-8">Edit Raffle</h1>
+      <h1 className="font-anton text-[28px] text-[var(--fg-primary)] tracking-[1px] mb-8">Edit Raffle</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -184,7 +184,7 @@ export function EditRafflePage() {
             <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Theme & Animation</h2>
             {/* Theme picker */}
             <div>
-              <label className="block text-sm font-medium text-[var(--fg-secondary)] mb-3">
+              <label className="block text-[13px] font-medium text-[var(--fg-secondary)] mb-3">
                 Visual Theme
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -194,7 +194,7 @@ export function EditRafflePage() {
                     type="button"
                     onClick={() => setTheme(t.key)}
                     className={`
-                      rounded-xl p-4 border-2 transition-all duration-200
+                      rounded-xl overflow-hidden border transition-all duration-200 bg-[var(--bg-secondary)] text-left
                       ${
                         theme === t.key
                           ? 'border-[var(--accent)] ring-2 ring-[var(--accent)]/30'
@@ -203,10 +203,12 @@ export function EditRafflePage() {
                     `}
                   >
                     <div
-                      className={`h-16 rounded-lg bg-gradient-to-br ${t.gradient} mb-3`}
+                      className={`h-20 bg-gradient-to-br ${t.gradient}`}
                     />
-                    <p className="text-sm font-medium text-[var(--fg-primary)]">{t.label}</p>
-                    <p className="text-xs text-[var(--fg-muted)]">{t.subtitle}</p>
+                    <div className="px-3 py-2.5">
+                      <p className="text-[13px] font-semibold text-[var(--fg-primary)]">{t.label}</p>
+                      <p className="text-[11px] text-[var(--fg-muted)]">{t.subtitle}</p>
+                    </div>
                   </button>
                 ))}
               </div>
@@ -214,7 +216,7 @@ export function EditRafflePage() {
 
             {/* Animation picker */}
             <div>
-              <label className="block text-sm font-medium text-[var(--fg-secondary)] mb-3">
+              <label className="block text-[13px] font-medium text-[var(--fg-secondary)] mb-3">
                 Animation Style
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -224,7 +226,7 @@ export function EditRafflePage() {
                     type="button"
                     onClick={() => setAnimationStyle(a.key)}
                     className={`
-                      rounded-xl p-4 border-2 transition-all duration-200 text-left
+                      rounded-xl overflow-hidden border transition-all duration-200 bg-[var(--bg-secondary)] text-left
                       ${
                         animationStyle === a.key
                           ? 'border-[var(--accent)] ring-2 ring-[var(--accent)]/30'
@@ -232,7 +234,7 @@ export function EditRafflePage() {
                       }
                     `}
                   >
-                    <div className="flex items-center justify-center h-12 mb-3 text-[var(--fg-muted)]">
+                    <div className="flex items-center justify-center h-20 bg-[var(--bg-tertiary)] text-[var(--accent)]">
                       {a.key === 'slot_machine' && (
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -257,8 +259,10 @@ export function EditRafflePage() {
                         </svg>
                       )}
                     </div>
-                    <p className="text-sm font-medium text-[var(--fg-primary)]">{a.label}</p>
-                    <p className="text-xs text-[var(--fg-muted)] mt-1">{a.description}</p>
+                    <div className="px-3 py-2.5">
+                      <p className="text-[13px] font-semibold text-[var(--fg-primary)]">{a.label}</p>
+                      <p className="text-[11px] text-[var(--fg-muted)]">{a.description}</p>
+                    </div>
                   </button>
                 ))}
               </div>

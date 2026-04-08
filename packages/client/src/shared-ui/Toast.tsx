@@ -57,7 +57,7 @@ export function Toast({ toast, onClose }: ToastProps) {
   return (
     <div
       className={`
-        flex items-center gap-3 px-[18px] py-[14px] rounded-xl border shadow-lg
+        flex items-center gap-3 px-[18px] py-[14px] rounded-xl border shadow-[0_8px_20px_rgba(0,0,0,0.25)]
         bg-[var(--bg-secondary)] ${borderColors[toast.variant]}
         animate-[slideIn_0.3s_ease-out]
       `}

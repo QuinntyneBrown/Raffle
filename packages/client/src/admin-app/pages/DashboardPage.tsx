@@ -80,7 +80,7 @@ export function DashboardPage() {
     <div>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <h1 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">Your Raffles</h1>
+        <h1 className="font-anton text-[28px] text-[var(--fg-primary)] tracking-[1px]">Your Raffles</h1>
         <Button onClick={() => navigate('/admin/create')}>
           <span className="mr-2">+</span> New Raffle
         </Button>
@@ -121,7 +121,7 @@ export function DashboardPage() {
         confirmVariant="danger"
         loading={deleteLoading}
         icon={
-          <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-[var(--error-light)] flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -132,7 +132,7 @@ export function DashboardPage() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-red-500"
+              className="text-[var(--error)]"
             >
               <path d="M3 6h18" />
               <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
