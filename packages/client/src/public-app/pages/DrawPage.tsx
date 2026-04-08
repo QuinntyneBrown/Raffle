@@ -234,14 +234,13 @@ export function DrawPage() {
               onComplete={handleAnimationComplete}
             />
           ) : state === 'all-drawn' ? (
-            <div className="text-center">
-              {winnerName && (
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--accent)] mb-2">
-                  {winnerName}
-                </p>
-              )}
-              <p className="text-base sm:text-lg text-[var(--fg-muted)]">
-                All names have been drawn!
+            <div className="text-center flex flex-col items-center gap-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+              <p className="font-anton text-4xl sm:text-5xl md:text-6xl text-[var(--fg-muted)] tracking-wider">
+                ALL DRAWN!
               </p>
             </div>
           ) : (

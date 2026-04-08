@@ -9,16 +9,16 @@ import { Textarea } from '@/shared-ui/Textarea';
 import { Spinner } from '@/shared-ui/Spinner';
 import { useToast } from '@/shared-ui/ToastContext';
 
-const themes: { key: Theme; label: string; gradient: string }[] = [
-  { key: 'cosmic', label: 'Cosmic', gradient: 'from-purple-600 to-purple-900' },
-  { key: 'festive', label: 'Festive', gradient: 'from-red-600 to-yellow-600' },
-  { key: 'corporate', label: 'Corporate', gradient: 'from-blue-600 to-blue-900' },
+const themes: { key: Theme; label: string; subtitle: string; gradient: string }[] = [
+  { key: 'cosmic', label: 'Cosmic', subtitle: 'Purple gradients', gradient: 'from-purple-600 to-purple-900' },
+  { key: 'festive', label: 'Festive', subtitle: 'Holiday warmth', gradient: 'from-red-600 to-yellow-600' },
+  { key: 'corporate', label: 'Corporate', subtitle: 'Clean & modern', gradient: 'from-blue-600 to-blue-900' },
 ];
 
 const animations: { key: AnimationStyle; label: string; description: string }[] = [
-  { key: 'slot_machine', label: 'Slot Machine', description: 'Names scroll vertically like a slot reel' },
-  { key: 'wheel_spin', label: 'Wheel Spin', description: 'Names rotate like a prize wheel' },
-  { key: 'card_flip', label: 'Card Flip', description: 'Names flip like playing cards' },
+  { key: 'slot_machine', label: 'Slot Machine', description: 'Classic slot reel' },
+  { key: 'wheel_spin', label: 'Wheel Spin', description: 'Spinning wheel' },
+  { key: 'card_flip', label: 'Card Flip', description: 'Card flip reveal' },
 ];
 
 export function EditRafflePage() {
@@ -131,6 +131,7 @@ export function EditRafflePage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left column */}
           <div className="space-y-5">
+            <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Raffle Details</h2>
             <Input
               label="Raffle Name"
               value={name}
@@ -140,18 +141,18 @@ export function EditRafflePage() {
             />
 
             <Input
-              label="Heading"
+              label="Page Heading"
               value={heading}
               onChange={(e) => setHeading(e.target.value)}
-              placeholder="e.g. WHO WILL WIN?"
+              placeholder="e.g. HOLIDAY GIVEAWAY 2026"
               error={errors['heading']}
             />
 
             <Input
-              label="Subheading (optional)"
+              label="Page Subheading (Optional)"
               value={subheading}
               onChange={(e) => setSubheading(e.target.value)}
-              placeholder="e.g. Click the button to find out!"
+              placeholder="e.g. Who will be our lucky winner?"
               error={errors['subheading']}
             />
 
@@ -180,10 +181,11 @@ export function EditRafflePage() {
 
           {/* Right column */}
           <div className="space-y-8">
+            <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Theme & Animation</h2>
             {/* Theme picker */}
             <div>
               <label className="block text-sm font-medium text-[var(--fg-secondary)] mb-3">
-                Theme
+                Visual Theme
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {themes.map((t) => (
@@ -204,6 +206,7 @@ export function EditRafflePage() {
                       className={`h-16 rounded-lg bg-gradient-to-br ${t.gradient} mb-3`}
                     />
                     <p className="text-sm font-medium text-[var(--fg-primary)]">{t.label}</p>
+                    <p className="text-xs text-[var(--fg-muted)]">{t.subtitle}</p>
                   </button>
                 ))}
               </div>

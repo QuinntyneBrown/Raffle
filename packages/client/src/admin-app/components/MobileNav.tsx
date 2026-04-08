@@ -104,6 +104,16 @@ export function MobileNav() {
               >
                 Create Raffle
               </NavLink>
+              <NavLink
+                to="/admin/settings"
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
+                  ${isActive ? 'bg-[var(--accent-light)] text-[var(--accent)]' : 'text-[var(--fg-muted)] hover:text-[var(--fg-primary)]'}`
+                }
+              >
+                Settings
+              </NavLink>
             </nav>
 
             <div className="p-4 border-t border-[var(--border)]">

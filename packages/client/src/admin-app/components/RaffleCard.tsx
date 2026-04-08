@@ -15,41 +15,26 @@ export function RaffleCard({ raffle, onActivate, onDeactivate, onDelete }: Raffl
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5 hover:border-[var(--fg-muted)]/30 transition-colors">
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="text-lg font-semibold text-[var(--fg-primary)] truncate">
-              {raffle.name}
-            </h3>
-            <Badge variant={raffle.isActive ? 'active' : 'inactive'}>
-              {raffle.isActive ? 'Active' : 'Inactive'}
-            </Badge>
-          </div>
-          <p className="text-sm text-[var(--fg-muted)] truncate">
-            {raffle.heading}
-          </p>
-        </div>
+    <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl p-5 hover:border-[var(--fg-muted)]/30 transition-colors">
+      {/* Top: Name + Badge */}
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-base font-semibold text-[var(--fg-primary)] truncate">
+          {raffle.name}
+        </h3>
+        <Badge variant={raffle.isActive ? 'active' : 'inactive'}>
+          {raffle.isActive ? 'Active' : 'Inactive'}
+        </Badge>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="bg-[var(--bg-primary)] rounded-lg p-3 text-center">
-          <p className="text-xl font-bold text-[var(--fg-primary)]">{raffle.totalParticipants}</p>
-          <p className="text-xs text-[var(--fg-muted)]">Participants</p>
-        </div>
-        <div className="bg-[var(--bg-primary)] rounded-lg p-3 text-center">
-          <p className="text-xl font-bold text-[var(--accent)]">{raffle.drawnCount}</p>
-          <p className="text-xs text-[var(--fg-muted)]">Drawn</p>
-        </div>
-        <div className="bg-[var(--bg-primary)] rounded-lg p-3 text-center">
-          <p className="text-xl font-bold text-[var(--success)]">{raffle.remainingCount}</p>
-          <p className="text-xs text-[var(--fg-muted)]">Remaining</p>
-        </div>
+      {/* Stats as inline text */}
+      <div className="flex gap-6 mb-3">
+        <span className="text-sm text-[var(--fg-muted)]">{raffle.totalParticipants} participants</span>
+        <span className="text-sm text-[var(--fg-muted)]">{raffle.drawnCount} drawn</span>
+        <span className="text-sm text-[var(--fg-muted)]">{raffle.remainingCount} remaining</span>
       </div>
 
       {/* Actions */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex justify-end gap-2">
         {raffle.isActive ? (
           <Button
             variant="secondary"
@@ -75,9 +60,10 @@ export function RaffleCard({ raffle, onActivate, onDeactivate, onDelete }: Raffl
           View
         </Button>
         <Button
-          variant="danger"
+          variant="ghost"
           size="sm"
           onClick={() => onDelete(raffle.id)}
+          className="text-[var(--error)] hover:text-red-300"
         >
           Delete
         </Button>

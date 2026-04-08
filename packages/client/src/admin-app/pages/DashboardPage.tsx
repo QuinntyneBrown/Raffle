@@ -80,7 +80,7 @@ export function DashboardPage() {
     <div>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <h1 className="text-2xl font-bold text-[var(--fg-primary)]">Your Raffles</h1>
+        <h1 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">Your Raffles</h1>
         <Button onClick={() => navigate('/admin/create')}>
           <span className="mr-2">+</span> New Raffle
         </Button>
@@ -97,7 +97,7 @@ export function DashboardPage() {
           </Button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="flex flex-col gap-3">
           {raffles.map((raffle) => (
             <RaffleCard
               key={raffle.id}
