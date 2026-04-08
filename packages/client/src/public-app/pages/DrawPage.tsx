@@ -7,6 +7,7 @@ import { CelebrationFX } from '../animations/CelebrationFX';
 import { AudioEngine } from '../audio/AudioEngine';
 import { ThemeRenderer } from '../themes/ThemeRenderer';
 import { StatsPills } from '../components/StatsPills';
+import { WinnerHistory } from '../components/WinnerHistory';
 
 type DrawState = 'loading' | 'no-active-raffle' | 'ready' | 'cycling' | 'winner-revealed' | 'all-drawn';
 
@@ -16,6 +17,7 @@ export function DrawPage() {
   const [winnerName, setWinnerName] = useState<string>('');
   const [isMuted, setIsMuted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [drawnNames, setDrawnNames] = useState<string[]>([]);
   const audioRef = useRef<AudioEngine | null>(null);
 
   // Initialize audio engine
@@ -36,6 +38,7 @@ export function DrawPage() {
           return;
         }
         setRaffle(data);
+        setDrawnNames(data.drawnNames ?? []);
         if (data.allDrawn) {
           setState('all-drawn');
           if (data.lastDrawnName) {
@@ -87,6 +90,11 @@ export function DrawPage() {
     audioRef.current?.stopCycling();
     audioRef.current?.playReveal();
 
+    // Optimistically add winner to drawn names list
+    if (winnerName) {
+      setDrawnNames(prev => prev.includes(winnerName) ? prev : [...prev, winnerName]);
+    }
+
     // Show celebration
     setShowCelebration(true);
     setState('winner-revealed');
@@ -103,6 +111,7 @@ export function DrawPage() {
             return;
           }
           setRaffle(data);
+          setDrawnNames(data.drawnNames ?? []);
           if (data.allDrawn) {
             setState('all-drawn');
           } else {
@@ -113,7 +122,7 @@ export function DrawPage() {
           setState('no-active-raffle');
         });
     }, 3500);
-  }, []);
+  }, [winnerName]);
 
   const toggleMute = useCallback(() => {
     if (audioRef.current) {
@@ -286,6 +295,9 @@ export function DrawPage() {
                 ? 'Revealing...'
                 : 'Draw a Name'}
         </button>
+
+        {/* Winner history */}
+        <WinnerHistory drawnNames={drawnNames} />
       </div>
     </>
   );
