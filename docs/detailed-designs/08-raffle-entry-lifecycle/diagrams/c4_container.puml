@@ -1,0 +1,23 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Raffle Entry Lifecycle - Container Diagram
+
+Person(participant, "Raffle Participant", "Self-registers")
+Person(visitor, "Public Visitor", "Draws names")
+Person(admin, "Administrator", "Resets draws")
+
+System_Boundary(sb, "Raffle Web Application") {
+    Container(spa, "React SPA", "React / Vite / TS", "Entry page, QR page, draw page")
+    Container(api, "Express API", "Node.js / Express / TS", "Registration, draw, admin APIs")
+    ContainerDb(db, "PostgreSQL", "PostgreSQL 16", "Raffle + participant data")
+}
+
+Rel(participant, spa, "Opens /enter", "HTTPS")
+Rel(visitor, spa, "Opens /", "HTTPS")
+Rel(admin, spa, "Opens /admin", "HTTPS")
+Rel(spa, api, "REST calls", "JSON/HTTPS")
+Rel(api, db, "Transactional reads/writes", "Prisma ORM")
+
+@enduml

@@ -20,6 +20,12 @@ A web application for hosting live raffle drawings with animated name reveals an
 - Reset draws to return all names to the pool
 - View detailed raffle status including drawn/undrawn names and draw history
 
+### QR Code Participant Entry
+- Public page displays a QR code linking to a self-registration page
+- Participants scan the QR code and enter their name to join the active raffle
+- Entries are accepted while the raffle is active and before drawing begins
+- Once the first name is drawn, new entries are automatically blocked
+
 ### Raffle Activation
 - Set exactly one raffle as active at a time
 - Activate/deactivate raffles with immediate effect on the public page

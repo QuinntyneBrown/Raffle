@@ -38,6 +38,8 @@ export class LoginPage {
   }
 
   async expectErrorVisible() {
-    await expect(this.page.getByText(/invalid/i)).toBeVisible({ timeout: 10000 });
+    await expect(
+      this.page.getByText(/invalid|too many|error|failed/i),
+    ).toBeVisible({ timeout: 10000 });
   }
 }

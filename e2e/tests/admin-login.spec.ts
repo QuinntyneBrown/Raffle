@@ -3,6 +3,7 @@ import { LoginPage } from '../pages/login.page';
 
 test.describe('Admin Login', () => {
   test.describe.configure({ mode: 'serial' });
+
   test('shows login form', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
@@ -19,19 +20,18 @@ test.describe('Admin Login', () => {
     await loginPage.expectErrorVisible();
   });
 
-  test('redirects to dashboard on successful login', async ({ page }) => {
-    // Auth storage state is pre-loaded; just navigate to admin
-    await page.goto('/admin');
+  test('redirects to dashboard on successful login and protects admin routes', async ({ page, browser }) => {
+    // Test successful login
+    const loginPage = new LoginPage(page);
+    await loginPage.loginAsAdmin();
     await expect(page).toHaveURL(/\/admin/);
     await expect(page.getByText(/your raffles/i)).toBeVisible();
-  });
 
-  test('protects admin routes from unauthenticated access', async ({ browser }) => {
-    // Use a fresh context without auth state to test unauthenticated access
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    await page.goto('/admin');
-    await expect(page).toHaveURL(/\/admin\/login/);
-    await context.close();
+    // Test unauthenticated access in a fresh context
+    const freshContext = await browser.newContext();
+    const freshPage = await freshContext.newPage();
+    await freshPage.goto('/admin');
+    await expect(freshPage).toHaveURL(/\/admin\/login/);
+    await freshContext.close();
   });
 });

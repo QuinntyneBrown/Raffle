@@ -1,0 +1,38 @@
+@startuml sequence_concurrent_race
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Concurrent Draw + Registration Race Condition
+
+participant "Draw Request" as DRAW
+participant "Register Request" as REG
+database "PostgreSQL" as DB
+
+note over DB: Raffle active\n3 participants\n0 drawn\n(entries open)
+
+DRAW -> DB: BEGIN TX (draw)
+REG -> DB: BEGIN TX (register)
+
+DRAW -> DB: SELECT random undrawn\nFOR UPDATE SKIP LOCKED
+DB --> DRAW: "Alice" (row locked)
+
+REG -> DB: SELECT COUNT(*)\nWHERE is_drawn=true
+note right: Sees 0 drawn\n(draw not yet committed)
+DB --> REG: count = 0
+
+DRAW -> DB: UPDATE isDrawn=true
+DRAW -> DB: COMMIT
+note over DB: Alice now drawn\ndrawnCount = 1
+
+REG -> DB: INSERT participant "Dave"
+note right: INSERT succeeds because\nREG's TX started before\ndraw committed.\nThis is acceptable under\nREAD COMMITTED.
+
+note over DB
+  In practice, the narrow window
+  makes this extremely unlikely.
+  The next registration attempt
+  will see drawnCount > 0
+  and be correctly rejected.
+end note
+
+@enduml

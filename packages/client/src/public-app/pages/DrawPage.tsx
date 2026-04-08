@@ -266,7 +266,7 @@ export function DrawPage() {
             px-12 py-5 sm:px-12 sm:py-5
             text-xl sm:text-2xl tracking-[2px]
             rounded-full
-            bg-gradient-to-b from-[var(--accent)] to-[var(--accent-hover)]
+            bg-gradient-to-b from-[var(--accent-btn)] to-[var(--accent-btn-hover)]
             shadow-[0_4px_24px_rgba(168,85,247,0.4)]
             hover:shadow-[0_6px_32px_rgba(168,85,247,0.5)]
             text-white

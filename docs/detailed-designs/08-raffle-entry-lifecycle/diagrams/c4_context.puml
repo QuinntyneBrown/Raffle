@@ -1,0 +1,17 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Raffle Entry Lifecycle - System Context
+
+Person(participant, "Raffle Participant", "Attempts self-registration")
+Person(visitor, "Public Visitor", "Triggers draws on public page")
+Person(admin, "Administrator", "Activates raffle, resets draws")
+
+System(raffle, "Raffle Web Application", "Enforces entry window: accepts registrations before first draw, rejects after")
+
+Rel(participant, raffle, "POST /register", "HTTPS")
+Rel(visitor, raffle, "POST /draw", "HTTPS")
+Rel(admin, raffle, "POST /reset, /activate", "HTTPS")
+
+@enduml

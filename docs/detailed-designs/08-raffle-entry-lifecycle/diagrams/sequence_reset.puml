@@ -1,0 +1,25 @@
+@startuml sequence_reset
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Admin Resets Draws — Entry Window Reopens
+
+actor Admin
+participant "Admin SPA" as UI
+participant "Express API" as API
+participant "resetDraws()" as RESET
+database "PostgreSQL" as DB
+
+note over DB: Raffle active\ndrawnCount = 2\n(entries closed)
+
+Admin -> UI: Clicks "Reset Draws"
+UI -> API: POST /api/admin/raffles/:id/reset
+API -> RESET: resetDraws(id)
+RESET -> DB: UPDATE participants\nSET is_drawn=false,\ndrawn_at=NULL,\ndraw_order=NULL\nWHERE raffle_id=:id
+DB --> RESET: 2 rows updated
+RESET --> API: updated raffle
+API --> UI: 200 { raffle }
+
+note over DB: drawnCount = 0\n**Entry window reopened**
+
+@enduml

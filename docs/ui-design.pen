@@ -78,6 +78,14 @@
           ]
         },
         {
+          "id": "g4N1G",
+          "type": "ref",
+          "ref": "VEK05",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center"
+        },
+        {
           "type": "frame",
           "id": "bI5so",
           "name": "drawArea",
@@ -173,7 +181,7 @@
               "ref": "c1aKm",
               "name": "newDrawBtn",
               "x": 518,
-              "y": 324.5,
+              "y": 309.5,
               "width": "fit_content",
               "height": "fit_content",
               "descendants": {
@@ -496,6 +504,14 @@
           ]
         },
         {
+          "id": "ouVrG",
+          "type": "ref",
+          "ref": "0luo9",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center"
+        },
+        {
           "type": "frame",
           "id": "0Z9kj",
           "name": "drawArea",
@@ -579,7 +595,7 @@
               "ref": "c1aKm",
               "name": "mDrawBtn",
               "x": 76,
-              "y": 370,
+              "y": 359,
               "width": "fit_content",
               "height": "fit_content",
               "descendants": {
@@ -7272,6 +7288,14 @@
           ]
         },
         {
+          "id": "7c3ZG",
+          "type": "ref",
+          "ref": "VEK05",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center"
+        },
+        {
           "type": "frame",
           "id": "ZRpbm",
           "name": "drawArea",
@@ -7367,7 +7391,7 @@
               "ref": "c1aKm",
               "name": "newDrawBtn",
               "x": 518,
-              "y": 324.5,
+              "y": 309.5,
               "opacity": 0.4,
               "width": "fit_content",
               "height": "fit_content",
@@ -7487,6 +7511,14 @@
               "fontWeight": "normal"
             }
           ]
+        },
+        {
+          "id": "6aD1m",
+          "type": "ref",
+          "ref": "VEK05",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center"
         },
         {
           "type": "frame",
@@ -7816,6 +7848,25 @@
           ]
         },
         {
+          "id": "PKXIn",
+          "type": "ref",
+          "ref": "VEK05",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center",
+          "descendants": {
+            "eHyaj": {
+              "content": "50 registered"
+            },
+            "eiVWH": {
+              "content": "0 remaining"
+            },
+            "fEojb": {
+              "content": "50 winners"
+            }
+          }
+        },
+        {
           "type": "frame",
           "id": "JFhrI",
           "name": "drawArea",
@@ -8063,6 +8114,14 @@
           ]
         },
         {
+          "id": "qfrQi",
+          "type": "ref",
+          "ref": "0luo9",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center"
+        },
+        {
           "type": "frame",
           "id": "MmHjj",
           "name": "drawArea",
@@ -8146,7 +8205,7 @@
               "ref": "c1aKm",
               "name": "mDrawBtn",
               "x": 76,
-              "y": 370,
+              "y": 359,
               "opacity": 0.4,
               "width": "fit_content",
               "height": "fit_content",
@@ -8271,6 +8330,14 @@
           ]
         },
         {
+          "id": "Z4z7F",
+          "type": "ref",
+          "ref": "0luo9",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center"
+        },
+        {
           "type": "frame",
           "id": "Or2BB",
           "name": "drawArea",
@@ -8391,7 +8458,7 @@
               "ref": "c1aKm",
               "name": "mDrawBtn",
               "x": 76,
-              "y": 401.5,
+              "y": 390.5,
               "opacity": 1,
               "width": "fit_content",
               "height": "fit_content",
@@ -8514,6 +8581,25 @@
               "fontWeight": "normal"
             }
           ]
+        },
+        {
+          "id": "gnRvg",
+          "type": "ref",
+          "ref": "0luo9",
+          "name": "statsPills",
+          "width": "fill_container",
+          "justifyContent": "center",
+          "descendants": {
+            "ZXFxx": {
+              "content": "50 registered"
+            },
+            "ZmdAX": {
+              "content": "0 remaining"
+            },
+            "85qjU": {
+              "content": "50 winners"
+            }
+          }
         },
         {
           "type": "frame",
@@ -8650,6 +8736,264 @@
               "iconFontName": "volume-2",
               "iconFontFamily": "lucide",
               "fill": "$fg-muted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "VEK05",
+      "x": 7000,
+      "y": 1300,
+      "name": "Component/StatsPills/XL",
+      "reusable": true,
+      "gap": 12,
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "DCSIm",
+          "name": "pillRegistered",
+          "fill": "$surface-secondary",
+          "cornerRadius": 9999,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border"
+          },
+          "gap": 6,
+          "padding": [
+            6,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "b1vKq",
+              "name": "emoji1",
+              "fill": "$fg-secondary",
+              "content": "👥",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "eHyaj",
+              "name": "label1",
+              "fill": "$fg-secondary",
+              "content": "50 registered",
+              "fontFamily": "Geist",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "EnEYk",
+          "name": "pillRemaining",
+          "fill": "$surface-secondary",
+          "cornerRadius": 9999,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border"
+          },
+          "gap": 6,
+          "padding": [
+            6,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "2e9qi",
+              "name": "emoji2",
+              "fill": "$fg-secondary",
+              "content": "🎯",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "eiVWH",
+              "name": "label2",
+              "fill": "$fg-secondary",
+              "content": "48 remaining",
+              "fontFamily": "Geist",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "sIv9d",
+          "name": "pillWinners",
+          "fill": "$surface-secondary",
+          "cornerRadius": 9999,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border"
+          },
+          "gap": 6,
+          "padding": [
+            6,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Wa4Wc",
+              "name": "emoji3",
+              "fill": "$fg-secondary",
+              "content": "🏆",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "fEojb",
+              "name": "label3",
+              "fill": "$fg-secondary",
+              "content": "2 winners",
+              "fontFamily": "Geist",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "0luo9",
+      "x": 7000,
+      "y": 1380,
+      "name": "Component/StatsPills/XS",
+      "reusable": true,
+      "gap": 8,
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "mYVhl",
+          "name": "pillRegistered",
+          "fill": "$surface-secondary",
+          "cornerRadius": 9999,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border"
+          },
+          "gap": 4,
+          "padding": [
+            4,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "zw9Oi",
+              "name": "emoji1",
+              "fill": "$fg-secondary",
+              "content": "👥",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "ZXFxx",
+              "name": "label1",
+              "fill": "$fg-secondary",
+              "content": "50 registered",
+              "fontFamily": "Geist",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZvkjQ",
+          "name": "pillRemaining",
+          "fill": "$surface-secondary",
+          "cornerRadius": 9999,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border"
+          },
+          "gap": 4,
+          "padding": [
+            4,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "8uyda",
+              "name": "emoji2",
+              "fill": "$fg-secondary",
+              "content": "🎯",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "ZmdAX",
+              "name": "label2",
+              "fill": "$fg-secondary",
+              "content": "48 remaining",
+              "fontFamily": "Geist",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "UzTml",
+          "name": "pillWinners",
+          "fill": "$surface-secondary",
+          "cornerRadius": 9999,
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border"
+          },
+          "gap": 4,
+          "padding": [
+            4,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "m22Mm",
+              "name": "emoji3",
+              "fill": "$fg-secondary",
+              "content": "🏆",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "85qjU",
+              "name": "label3",
+              "fill": "$fg-secondary",
+              "content": "2 winners",
+              "fontFamily": "Geist",
+              "fontSize": 11,
+              "fontWeight": "normal"
             }
           ]
         }

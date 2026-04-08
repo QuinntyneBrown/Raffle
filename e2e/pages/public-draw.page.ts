@@ -16,6 +16,11 @@ export class PublicDrawPage {
   }
 
   async hasActiveRaffle(): Promise<boolean> {
+    // Wait for loading to complete - either draw button or no-raffle message appears
+    await Promise.race([
+      this.drawButton.waitFor({ state: 'visible', timeout: 10000 }),
+      this.noActiveRaffleMessage.waitFor({ state: 'visible', timeout: 10000 }),
+    ]).catch(() => {});
     return this.drawButton.isVisible().catch(() => false);
   }
 

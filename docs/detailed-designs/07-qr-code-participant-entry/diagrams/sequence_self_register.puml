@@ -1,0 +1,44 @@
+@startuml sequence_self_register
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Participant Self-Registration (Happy Path)
+
+actor Participant
+participant "EntryPage" as EP
+participant "Zod Schema" as ZOD
+participant "API Client" as API
+participant "Express API" as Server
+participant "Registration\nService" as SVC
+database "PostgreSQL" as DB
+
+Participant -> EP: Scans QR → opens /enter
+EP -> API: getActiveRaffle()
+API -> Server: GET /api/public/active-raffle
+Server --> API: 200 { raffle }
+API --> EP: ActiveRafflePublic (accepting entries)
+EP --> Participant: Show name form
+
+Participant -> EP: Types "Alice", taps "Join Raffle"
+EP -> ZOD: validate({ name: "Alice" })
+ZOD --> EP: valid
+
+EP -> API: registerParticipant("Alice")
+API -> Server: POST /api/public/register\n{ name: "Alice" }
+
+Server -> SVC: registerParticipant("Alice")
+SVC -> DB: BEGIN TRANSACTION
+SVC -> DB: SELECT raffle WHERE isActive
+DB --> SVC: raffle (no draws yet)
+SVC -> DB: CHECK duplicate name
+DB --> SVC: no duplicate
+SVC -> DB: INSERT participant
+DB --> SVC: created
+SVC -> DB: COMMIT
+SVC --> Server: participant
+
+Server --> API: 201 { participant }
+API --> EP: success
+EP --> Participant: "You're in! Good luck."
+
+@enduml

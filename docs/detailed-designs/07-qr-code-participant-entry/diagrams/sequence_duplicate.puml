@@ -1,0 +1,30 @@
+@startuml sequence_duplicate
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Duplicate Name Rejection
+
+actor Participant
+participant "EntryPage" as EP
+participant "API Client" as API
+participant "Express API" as Server
+participant "Registration\nService" as SVC
+database "PostgreSQL" as DB
+
+Participant -> EP: Submits "Alice" (already exists)
+EP -> API: registerParticipant("Alice")
+API -> Server: POST /api/public/register\n{ name: "Alice" }
+
+Server -> SVC: registerParticipant("Alice")
+SVC -> DB: BEGIN TRANSACTION
+SVC -> DB: SELECT raffle WHERE isActive
+DB --> SVC: raffle (accepting entries)
+SVC -> DB: CHECK duplicate name
+DB --> SVC: "Alice" exists
+
+SVC --> Server: throw DuplicateEntryError
+Server --> API: 409 { error: {\n  code: "DUPLICATE_ENTRY",\n  message: "That name is already entered"\n} }
+API --> EP: DuplicateEntryError
+EP --> Participant: "That name is already entered"
+
+@enduml

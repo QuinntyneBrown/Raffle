@@ -8,3 +8,5 @@
 | 04 | [Winner History List](04-winner-history/README.md) | Draft | Numbered, scrollable winner history panel on the public draw page |
 | 05 | [Spinning Draw Icon](05-spinning-draw-icon/README.md) | Draft | Animated spinning icon in the draw button during cycling state |
 | 06 | [Presentation Mode](06-presentation-mode/README.md) | Draft | High-contrast, flat-card presentation mode optimized for projectors |
+| 07 | [QR Code Participant Entry](07-qr-code-participant-entry/README.md) | Draft | QR code display and mobile self-registration for raffle participants |
+| 08 | [Raffle Entry Lifecycle](08-raffle-entry-lifecycle/README.md) | Draft | Entry window enforcement: block registration after first draw |

@@ -1,0 +1,21 @@
+@startuml state_machine
+!theme plain
+skinparam stateFontSize 12
+
+title Raffle Entry Lifecycle - State Machine
+
+[*] --> Inactive : Raffle created
+
+state Inactive : isActive = false\nNo public interactions
+
+state AcceptingEntries : isActive = true\ndrawnCount = 0\nSelf-registration open
+
+state DrawingStarted : isActive = true\ndrawnCount > 0\nSelf-registration closed
+
+Inactive --> AcceptingEntries : Admin activates\n(no prior draws)
+AcceptingEntries --> DrawingStarted : First name drawn\n(POST /draw)
+DrawingStarted --> AcceptingEntries : Admin resets draws\n(POST /reset)
+AcceptingEntries --> Inactive : Admin deactivates
+DrawingStarted --> Inactive : Admin deactivates
+
+@enduml

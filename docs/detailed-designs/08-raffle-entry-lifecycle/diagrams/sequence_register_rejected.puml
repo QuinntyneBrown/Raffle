@@ -1,0 +1,28 @@
+@startuml sequence_register_rejected
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Registration Rejected After Drawing Started
+
+actor Participant
+participant "EntryPage" as EP
+participant "Express API" as API
+participant "registerParticipant()" as REG
+database "PostgreSQL" as DB
+
+note over DB: Raffle active\ndrawnCount = 1\n(drawing started)
+
+Participant -> EP: Submits name "Dave"
+EP -> API: POST /api/public/register\n{ name: "Dave" }
+API -> REG: registerParticipant("Dave")
+REG -> DB: BEGIN TX
+REG -> DB: SELECT raffle WHERE isActive
+DB --> REG: raffle found
+REG -> DB: SELECT COUNT(*) FROM participants\nWHERE raffle_id=? AND is_drawn=true
+DB --> REG: count = 1
+
+REG --> API: throw EntriesClosedError
+API --> EP: 403 { error: {\n  code: "ENTRIES_CLOSED",\n  message: "Entries are closed"\n} }
+EP --> Participant: "Entries are closed"
+
+@enduml

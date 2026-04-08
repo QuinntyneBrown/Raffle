@@ -8,7 +8,7 @@ export class CreateRafflePage {
 
   constructor(private readonly page: Page) {
     this.nameInput = page.getByLabel(/raffle name/i);
-    this.headingInput = page.getByLabel(/heading/i);
+    this.headingInput = page.getByLabel(/^page heading$/i);
     this.participantsInput = page.getByLabel(/participants/i);
     this.createButton = page.getByRole('button', { name: /create/i });
   }

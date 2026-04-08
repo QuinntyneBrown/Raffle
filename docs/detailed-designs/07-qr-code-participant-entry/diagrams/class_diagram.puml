@@ -1,0 +1,45 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title QR Code Participant Entry - Domain Model
+
+class Raffle {
+    +id: UUID
+    +name: String
+    +heading: String
+    +subheading: String?
+    +theme: Theme
+    +animationStyle: AnimationStyle
+    +isActive: Boolean
+    +createdById: UUID
+    +createdAt: DateTime
+    +updatedAt: DateTime
+}
+
+class Participant {
+    +id: UUID
+    +raffleId: UUID
+    +name: String {max 100, sanitized}
+    +isDrawn: Boolean = false
+    +drawnAt: DateTime?
+    +drawOrder: Int?
+    +createdAt: DateTime
+}
+
+note right of Participant
+  @@unique([raffleId, name])
+  Prevents duplicate entries
+  at the database level
+end note
+
+class SelfRegistrationInput <<Zod Schema>> {
+    +name: String {trim, min 1, max 100}
+}
+
+Raffle "1" -- "*" Participant : has >
+
+SelfRegistrationInput ..> Participant : validates input for
+
+@enduml

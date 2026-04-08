@@ -1,0 +1,47 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+
+title Raffle Entry Lifecycle - Domain Model
+
+class Raffle {
+    +id: UUID
+    +isActive: Boolean
+    --
+    +hasDrawingStarted(): Boolean
+}
+
+note right of Raffle::hasDrawingStarted
+  Derived: returns true if any
+  participant has isDrawn = true
+end note
+
+class Participant {
+    +id: UUID
+    +raffleId: UUID
+    +name: String
+    +isDrawn: Boolean
+    +drawnAt: DateTime?
+    +drawOrder: Int?
+}
+
+class ActiveRafflePublic <<DTO>> {
+    +id: String
+    +heading: String
+    +subheading: String?
+    +hasDrawingStarted: Boolean
+    +totalCount: Int
+    +remainingCount: Int
+}
+
+enum EntryState <<derived>> {
+    ACCEPTING_ENTRIES
+    DRAWING_STARTED
+}
+
+Raffle "1" -- "*" Participant : has >
+Raffle ..> EntryState : derives
+Raffle ..> ActiveRafflePublic : serializes to
+
+@enduml

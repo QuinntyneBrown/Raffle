@@ -1,0 +1,29 @@
+@startuml sequence_first_draw
+!theme plain
+skinparam sequenceMessageAlign center
+
+title First Draw Closes Entry Window
+
+actor Visitor
+participant "DrawPage" as DP
+participant "Express API" as API
+participant "drawName()" as DRAW
+database "PostgreSQL" as DB
+
+note over DB: Raffle active\n3 participants\n0 drawn
+
+Visitor -> DP: Clicks "Draw"
+DP -> API: POST /api/public/draw
+API -> DRAW: drawName(raffleId)
+DRAW -> DB: BEGIN TX
+DRAW -> DB: SELECT random undrawn\nFOR UPDATE SKIP LOCKED
+DB --> DRAW: "Alice"
+DRAW -> DB: UPDATE isDrawn=true,\ndrawnAt=NOW(), drawOrder=1
+DB --> DRAW: OK
+DRAW -> DB: COMMIT
+DRAW --> API: { name: "Alice", drawOrder: 1 }
+API --> DP: 200 { result }
+
+note over DB: drawnCount = 1\n**Entry window now closed**
+
+@enduml

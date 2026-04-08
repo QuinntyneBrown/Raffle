@@ -1,0 +1,23 @@
+@startuml c4_component_client
+!theme plain
+!include <C4/C4_Component>
+
+title QR Code Participant Entry - Client Components
+
+Container_Boundary(spa, "React SPA") {
+    Component(router, "React Router", "react-router-dom", "Routes /qr and /enter")
+    Component(qrPage, "QRCodePage", "React Component", "Displays QR code for active raffle")
+    Component(entryPage, "EntryPage", "React Component", "Mobile-first self-registration form")
+    Component(qrLib, "QR Generator", "qrcode.react", "Client-side QR code rendering")
+    Component(apiClient, "API Client", "lib/api.ts", "HTTP calls to Express API")
+    Component(validation, "Zod Schema", "@raffle/shared", "selfRegistrationSchema")
+}
+
+Rel(router, qrPage, "Mounts at /qr")
+Rel(router, entryPage, "Mounts at /enter")
+Rel(qrPage, apiClient, "getActiveRaffle()")
+Rel(qrPage, qrLib, "Encodes URL as QR")
+Rel(entryPage, apiClient, "registerParticipant()")
+Rel(entryPage, validation, "Validates name input")
+
+@enduml

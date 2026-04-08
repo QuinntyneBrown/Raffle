@@ -1,0 +1,21 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title QR Code Participant Entry - Container Diagram
+
+Person(visitor, "Public Visitor", "Views QR code on screen")
+Person(participant, "Raffle Participant", "Scans QR, enters name")
+
+System_Boundary(sb, "Raffle Web Application") {
+    Container(spa, "React SPA", "React / Vite / TS", "Public site: QR page, entry page, draw page")
+    Container(api, "Express API", "Node.js / Express / TS", "REST API: registration, draw, admin")
+    ContainerDb(db, "PostgreSQL", "PostgreSQL 16", "Raffles, participants, admin users")
+}
+
+Rel(visitor, spa, "Opens /qr", "HTTPS")
+Rel(participant, spa, "Opens /enter", "HTTPS")
+Rel(spa, api, "GET /api/public/active-raffle\nPOST /api/public/register", "JSON/HTTPS")
+Rel(api, db, "Reads/writes participants", "Prisma ORM")
+
+@enduml

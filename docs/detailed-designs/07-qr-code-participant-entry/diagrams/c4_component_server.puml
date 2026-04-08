@@ -1,0 +1,23 @@
+@startuml c4_component_server
+!theme plain
+!include <C4/C4_Component>
+
+title QR Code Participant Entry - Server Components
+
+Container_Boundary(api, "Express API") {
+    Component(pubRoutes, "Public Routes", "Express Router", "POST /api/public/register")
+    Component(rateLimiter, "registrationLimiter", "express-rate-limit", "10 req/IP/min")
+    Component(validator, "Validate Middleware", "Zod + middleware", "selfRegistrationSchema")
+    Component(regService, "Registration Logic", "raffle.service.ts", "registerParticipant()")
+    Component(prisma, "Prisma Client", "Prisma ORM", "Database access layer")
+}
+
+ContainerDb(db, "PostgreSQL", "PostgreSQL 16", "participants table")
+
+Rel(pubRoutes, rateLimiter, "Applies rate limit")
+Rel(rateLimiter, validator, "Validates input")
+Rel(validator, regService, "Calls")
+Rel(regService, prisma, "Transaction: check + insert")
+Rel(prisma, db, "SQL queries")
+
+@enduml

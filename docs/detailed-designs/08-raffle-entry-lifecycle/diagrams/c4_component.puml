@@ -1,0 +1,24 @@
+@startuml c4_component
+!theme plain
+!include <C4/C4_Component>
+
+title Raffle Entry Lifecycle - Component Diagram
+
+Container_Boundary(api, "Express API") {
+    Component(pubRoutes, "Public Routes", "Express Router", "POST /register, POST /draw")
+    Component(regService, "registerParticipant()", "raffle.service.ts", "Entry window check + insert")
+    Component(drawService, "drawName()", "draw.service.ts", "Atomic random draw")
+    Component(resetService, "resetDraws()", "raffle.service.ts", "Clear all draws → reopen entries")
+    Component(prisma, "Prisma Client", "Prisma ORM", "Transaction management")
+}
+
+ContainerDb(db, "PostgreSQL", "", "participants.is_drawn\nderives entry state")
+
+Rel(pubRoutes, regService, "Register request")
+Rel(pubRoutes, drawService, "Draw request")
+Rel(regService, prisma, "TX: check isDrawn count\nthen INSERT")
+Rel(drawService, prisma, "TX: SELECT FOR UPDATE\nthen UPDATE isDrawn")
+Rel(resetService, prisma, "UPDATE isDrawn=false")
+Rel(prisma, db, "SQL")
+
+@enduml

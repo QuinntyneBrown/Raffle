@@ -1,0 +1,34 @@
+@startuml sequence_qr_display
+!theme plain
+skinparam sequenceMessageAlign center
+
+title QR Code Display Workflow
+
+actor Visitor
+participant "QRCodePage" as QR
+participant "API Client" as API
+participant "Express API" as Server
+database "PostgreSQL" as DB
+
+Visitor -> QR: Opens /qr
+QR -> API: getActiveRaffle()
+API -> Server: GET /api/public/active-raffle
+Server -> DB: SELECT raffle WHERE isActive
+DB --> Server: raffle data
+
+alt No active raffle
+    Server --> API: 404 Not Found
+    API --> QR: null
+    QR --> Visitor: "No raffle is currently active"
+else Raffle active, drawnCount > 0
+    Server --> API: 200 { raffle }
+    API --> QR: ActiveRafflePublic
+    QR --> Visitor: "Entries are closed"
+else Raffle active, accepting entries
+    Server --> API: 200 { raffle }
+    API --> QR: ActiveRafflePublic
+    QR -> QR: Generate QR code\nfor {origin}/enter
+    QR --> Visitor: QR code + "Scan to enter"\n+ text link to /enter
+end
+
+@enduml

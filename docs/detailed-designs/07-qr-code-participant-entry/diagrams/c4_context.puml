@@ -1,0 +1,17 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title QR Code Participant Entry - System Context
+
+Person(visitor, "Public Visitor", "Views QR code on projected screen")
+Person(participant, "Raffle Participant", "Scans QR code, enters name on mobile")
+Person(admin, "Administrator", "Activates raffle via back office")
+
+System(raffle, "Raffle Web Application", "Displays QR code, accepts self-registration, manages raffles")
+
+Rel(visitor, raffle, "Views QR code page", "HTTPS")
+Rel(participant, raffle, "Scans QR → self-registers", "HTTPS")
+Rel(admin, raffle, "Manages raffles", "HTTPS")
+
+@enduml

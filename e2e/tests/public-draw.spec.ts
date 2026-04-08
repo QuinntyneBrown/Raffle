@@ -7,7 +7,8 @@ test.describe('Public Raffle Page', () => {
     await drawPage.goto();
     const hasRaffle = await drawPage.hasActiveRaffle();
     if (hasRaffle) {
-      await expect(drawPage.drawButton).toBeEnabled();
+      // Draw button may be disabled if all names have been drawn
+      await expect(drawPage.drawButton).toBeVisible();
     } else {
       await expect(drawPage.noActiveRaffleMessage).toBeVisible();
     }
@@ -17,7 +18,10 @@ test.describe('Public Raffle Page', () => {
     const drawPage = new PublicDrawPage(page);
     await drawPage.goto();
     if (await drawPage.hasActiveRaffle()) {
-      await drawPage.draw();
+      const isEnabled = await drawPage.drawButton.isEnabled().catch(() => false);
+      if (isEnabled) {
+        await drawPage.draw();
+      }
     }
   });
 

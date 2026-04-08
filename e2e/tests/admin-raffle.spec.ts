@@ -3,51 +3,36 @@ import { LoginPage } from '../pages/login.page';
 import { DashboardPage } from '../pages/dashboard.page';
 import { CreateRafflePage } from '../pages/create-raffle.page';
 
-async function ensureOnDashboard(page: import('@playwright/test').Page) {
-  await page.goto('/admin');
-  await page.waitForLoadState('networkidle');
-  if (page.url().includes('/login')) {
-    const loginPage = new LoginPage(page);
-    await loginPage.login('admin@raffle.app', 'password123');
-    await expect(page.getByText(/your raffles/i)).toBeVisible({ timeout: 10000 });
-  } else {
-    await expect(page.getByText(/your raffles/i)).toBeVisible({ timeout: 10000 });
-  }
-}
-
 test.describe('Admin Raffle Management', () => {
-  test.describe.configure({ mode: 'serial' });
-
   test('displays raffle list on dashboard', async ({ page }) => {
-    await ensureOnDashboard(page);
+    const loginPage = new LoginPage(page);
+    await loginPage.loginAsAdmin();
     const dashboardPage = new DashboardPage(page);
     await dashboardPage.expectRaffleListVisible();
   });
 
-  test('can navigate to create raffle page', async ({ page }) => {
-    await ensureOnDashboard(page);
+  test('can navigate to create raffle, create one, and activate it', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.loginAsAdmin();
     const dashboardPage = new DashboardPage(page);
-    await dashboardPage.navigateToCreateRaffle();
-  });
 
-  test('can create a new raffle', async ({ page }) => {
-    await ensureOnDashboard(page);
-    const dashboardPage = new DashboardPage(page);
+    // Navigate to create raffle page
     await dashboardPage.navigateToCreateRaffle();
+
+    // Create a new raffle with unique name
+    const suffix = Date.now().toString(36);
+    const raffleName = `Test Raffle ${suffix}`;
     const createPage = new CreateRafflePage(page);
-    await createPage.fillAndSubmit('Test Raffle E2E', 'TEST RAFFLE', [
+    await createPage.fillAndSubmit(raffleName, 'TEST RAFFLE', [
       'Alice',
       'Bob',
       'Charlie',
       'Diana',
       'Eve',
     ]);
-    await dashboardPage.expectRaffleVisible('test raffle e2e');
-  });
+    await dashboardPage.expectRaffleVisible(raffleName);
 
-  test('can activate and deactivate a raffle', async ({ page }) => {
-    await ensureOnDashboard(page);
-    const dashboardPage = new DashboardPage(page);
+    // Activate/deactivate
     await dashboardPage.activateFirstRaffle();
   });
 });
