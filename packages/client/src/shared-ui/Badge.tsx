@@ -27,6 +27,9 @@ export function Badge({ variant, children, className = '' }: BadgeProps) {
       {variant === 'active' && (
         <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)] animate-pulse" />
       )}
+      {variant === 'inactive' && (
+        <span className="h-1.5 w-1.5 rounded-full bg-[var(--fg-muted)]" />
+      )}
       {children}
     </span>
   );

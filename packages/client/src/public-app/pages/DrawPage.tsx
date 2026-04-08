@@ -255,9 +255,9 @@ export function DrawPage() {
           onClick={handleDraw}
           disabled={state !== 'ready'}
           className="
-            font-anton tracking-widest uppercase
-            px-12 py-4 sm:px-16 sm:py-5
-            text-lg sm:text-xl
+            font-anton uppercase
+            px-12 py-5 sm:px-16 sm:py-5
+            text-xl sm:text-2xl tracking-[2px]
             rounded-full
             bg-gradient-to-b from-[var(--accent)] to-[var(--accent-hover)]
             shadow-[0_4px_24px_rgba(168,85,247,0.4)]

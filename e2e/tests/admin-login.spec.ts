@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 
 test.describe('Admin Login', () => {
+  test.describe.configure({ mode: 'serial' });
   test('shows login form', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();

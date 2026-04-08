@@ -91,7 +91,7 @@ export function Dialog({ open, onClose, title, description, icon, children, acti
 
         <h2
           id="dialog-title"
-          className="text-lg font-bold text-[var(--fg-primary)]"
+          className="font-geist text-lg font-bold text-[var(--fg-primary)]"
         >
           {title}
         </h2>
@@ -99,7 +99,7 @@ export function Dialog({ open, onClose, title, description, icon, children, acti
         {description && (
           <p
             id="dialog-description"
-            className="mt-2 text-sm text-[var(--fg-secondary)]"
+            className="font-geist mt-2 text-sm text-[var(--fg-secondary)]"
           >
             {description}
           </p>

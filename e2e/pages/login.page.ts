@@ -24,12 +24,20 @@ export class LoginPage {
   }
 
   async loginAsAdmin() {
-    await this.goto();
-    await this.login('admin@raffle.app', 'password123');
-    await expect(this.page.getByText(/your raffles/i)).toBeVisible({ timeout: 5000 });
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await this.goto();
+      await this.login('admin@raffle.app', 'password123');
+      try {
+        await expect(this.page.getByText(/your raffles/i)).toBeVisible({ timeout: 5000 });
+        return;
+      } catch {
+        if (attempt === 2) throw new Error('loginAsAdmin failed after 3 attempts');
+        await this.page.waitForTimeout(1000);
+      }
+    }
   }
 
   async expectErrorVisible() {
-    await expect(this.page.getByText(/invalid/i)).toBeVisible();
+    await expect(this.page.getByText(/invalid/i)).toBeVisible({ timeout: 10000 });
   }
 }

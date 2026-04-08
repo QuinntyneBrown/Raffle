@@ -39,7 +39,7 @@ export function LoginPage() {
           <h1 className="font-anton text-4xl lg:text-[64px] text-white mb-2 lg:mb-4 tracking-[6px]">
             RAFFLE
           </h1>
-          <p className="text-sm lg:text-lg text-white/80">
+          <p className="font-geist text-sm lg:text-lg text-white/80">
             Admin Portal
           </p>
         </div>
@@ -52,7 +52,7 @@ export function LoginPage() {
             <h2 className="font-anton text-[32px] text-[var(--fg-primary)] tracking-[2px]">
               Welcome Back
             </h2>
-            <p className="text-sm text-[var(--fg-secondary)] mt-2">
+            <p className="font-geist text-sm text-[var(--fg-secondary)] mt-2">
               Sign in to manage your raffles
             </p>
           </div>
@@ -104,7 +104,7 @@ export function LoginPage() {
           <p className="mt-6 text-center text-[13px] text-[var(--fg-muted)]">
             <a
               href="#"
-              className="text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors"
+              className="font-geist text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors"
             >
               Forgot your password?
             </a>

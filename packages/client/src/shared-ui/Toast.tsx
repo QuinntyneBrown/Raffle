@@ -46,9 +46,9 @@ function ToastIcon({ variant }: { variant: ToastVariant }) {
   }
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconClass}>
-      <circle cx="12" cy="12" r="10" />
-      <line x1="12" y1="8" x2="12" y2="12" />
-      <line x1="12" y1="16" x2="12.01" y2="16" />
+      <line x1="10" x2="14" y1="2" y2="2" />
+      <line x1="12" x2="15" y1="14" y2="11" />
+      <circle cx="12" cy="14" r="8" />
     </svg>
   );
 }
@@ -64,7 +64,7 @@ export function Toast({ toast, onClose }: ToastProps) {
       role="alert"
     >
       <ToastIcon variant={toast.variant} />
-      <p className="flex-1 text-sm text-[var(--fg-primary)]">{toast.message}</p>
+      <p className="flex-1 font-geist text-sm text-[var(--fg-primary)]">{toast.message}</p>
       <button
         onClick={() => onClose(toast.id)}
         className="text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors"

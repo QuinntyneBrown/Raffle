@@ -4,6 +4,8 @@ import { DashboardPage } from '../pages/dashboard.page';
 import { CreateRafflePage } from '../pages/create-raffle.page';
 
 test.describe('Admin Raffle Management', () => {
+  test.describe.configure({ mode: 'serial' });
+
   let dashboardPage: DashboardPage;
 
   test.beforeEach(async ({ page }) => {
