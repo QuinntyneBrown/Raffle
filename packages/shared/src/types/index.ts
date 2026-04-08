@@ -50,6 +50,7 @@ export interface ActiveRafflePublic {
   lastDrawnName: string | null;
   totalCount: number;
   remainingCount: number;
+  drawnNames: string[];
 }
 
 export interface AdminUser {

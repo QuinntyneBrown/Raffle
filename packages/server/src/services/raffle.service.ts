@@ -256,7 +256,18 @@ export async function getActiveRaffle(): Promise<ActiveRafflePublic | null> {
   const totalCount = raffle.participants.length;
   const remainingCount = raffle.participants.filter((p: { isDrawn: boolean }) => !p.isDrawn).length;
 
+<<<<<<< HEAD
   const hasDrawingStarted = raffle.participants.some((p: { isDrawn: boolean }) => p.isDrawn);
+=======
+  const drawnParticipants = raffle.participants
+    .filter((p: { isDrawn: boolean; drawOrder: number | null }) => p.isDrawn && p.drawOrder !== null)
+    .sort(
+      (
+        a: { drawOrder: number | null },
+        b: { drawOrder: number | null },
+      ) => (a.drawOrder ?? 0) - (b.drawOrder ?? 0),
+    );
+>>>>>>> 0cd151a23b122706f576b61798960592a96676df
 
   return {
     id: raffle.id,
@@ -270,6 +281,7 @@ export async function getActiveRaffle(): Promise<ActiveRafflePublic | null> {
     lastDrawnName: lastDrawn?.name ?? null,
     totalCount,
     remainingCount,
+    drawnNames: drawnParticipants.map((p: { name: string }) => p.name),
   };
 }
 

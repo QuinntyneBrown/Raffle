@@ -1,6 +1,9 @@
 import { Router, Request, Response } from 'express';
+import { selfRegistrationSchema } from '@raffle/shared';
 import * as raffleService from '../services/raffle.service.js';
 import * as drawService from '../services/draw.service.js';
+import { registrationLimiter } from '../middleware/security.js';
+import { validate } from '../middleware/validate.js';
 
 const router = Router();
 
@@ -65,5 +68,42 @@ router.post('/draw', async (_req: Request, res: Response): Promise<void> => {
     });
   }
 });
+
+// POST /api/public/register
+router.post(
+  '/register',
+  registrationLimiter,
+  validate(selfRegistrationSchema),
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { name } = req.body as { name: string };
+      const participant = await raffleService.registerParticipant(name);
+      res.status(201).json({ participant });
+    } catch (error) {
+      if (error instanceof raffleService.EntriesClosedError) {
+        res.status(403).json({
+          error: { code: 'ENTRIES_CLOSED', message: error.message },
+        });
+        return;
+      }
+      if (error instanceof raffleService.DuplicateEntryError) {
+        res.status(409).json({
+          error: { code: 'DUPLICATE_ENTRY', message: error.message },
+        });
+        return;
+      }
+      if (error instanceof Error && error.message === 'No active raffle found') {
+        res.status(404).json({
+          error: { code: 'NOT_FOUND', message: 'No active raffle found' },
+        });
+        return;
+      }
+      console.error('Registration error:', error);
+      res.status(500).json({
+        error: { code: 'INTERNAL_ERROR', message: 'Failed to register participant' },
+      });
+    }
+  },
+);
 
 export default router;
