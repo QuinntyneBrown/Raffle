@@ -11,6 +11,7 @@ export interface Raffle {
   subheading: string | null;
   theme: Theme;
   animationStyle: AnimationStyle;
+  presentationMode: boolean;
   isActive: boolean;
   createdBy: string;
   createdAt: string;
@@ -44,6 +45,7 @@ export interface ActiveRafflePublic {
   subheading: string | null;
   theme: Theme;
   animationStyle: AnimationStyle;
+  presentationMode: boolean;
   participantNames: string[];
   allDrawn: boolean;
   hasDrawingStarted: boolean;
@@ -71,6 +73,7 @@ export interface CreateRaffleInput {
   subheading?: string | null;
   theme: Theme;
   animationStyle: AnimationStyle;
+  presentationMode?: boolean;
   participants: string[];
 }
 
@@ -80,6 +83,7 @@ export interface UpdateRaffleInput {
   subheading?: string | null;
   theme?: Theme;
   animationStyle?: AnimationStyle;
+  presentationMode?: boolean;
   participants?: string[];
 }
 

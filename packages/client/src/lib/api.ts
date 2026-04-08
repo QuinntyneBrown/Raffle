@@ -179,6 +179,7 @@ export interface RaffleDetail {
   subheading: string | null;
   theme: string;
   animationStyle: string;
+  presentationMode: boolean;
   isActive: boolean;
   createdBy: string;
   createdAt: string;

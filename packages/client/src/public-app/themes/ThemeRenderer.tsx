@@ -3,6 +3,7 @@ import type { Theme } from '@raffle/shared';
 
 interface ThemeRendererProps {
   theme: Theme;
+  presentationMode?: boolean;
 }
 
 const themeDefinitions: Record<Theme, Record<string, string>> = {
@@ -71,7 +72,15 @@ const themeDefinitions: Record<Theme, Record<string, string>> = {
   },
 };
 
-export function ThemeRenderer({ theme }: ThemeRendererProps) {
+const presentationOverrides: Record<string, string> = {
+  '--bg-primary': '#000000',
+  '--bg-secondary': '#111111',
+  '--bg-tertiary': '#1A1A1A',
+  '--accent-glow-soft': 'transparent',
+  '--accent-glow-strong': 'transparent',
+};
+
+export function ThemeRenderer({ theme, presentationMode }: ThemeRendererProps) {
   useEffect(() => {
     const root = document.documentElement;
     const vars = themeDefinitions[theme];
@@ -82,13 +91,26 @@ export function ThemeRenderer({ theme }: ThemeRendererProps) {
       root.style.setProperty(prop, value);
     }
 
+    if (presentationMode) {
+      root.setAttribute('data-presentation', 'true');
+      for (const [prop, value] of Object.entries(presentationOverrides)) {
+        root.style.setProperty(prop, value);
+      }
+    } else {
+      root.removeAttribute('data-presentation');
+    }
+
     return () => {
       root.removeAttribute('data-theme');
+      root.removeAttribute('data-presentation');
       for (const prop of Object.keys(vars)) {
         root.style.removeProperty(prop);
       }
+      for (const prop of Object.keys(presentationOverrides)) {
+        root.style.removeProperty(prop);
+      }
     };
-  }, [theme]);
+  }, [theme, presentationMode]);
 
   return null;
 }

@@ -24,8 +24,9 @@ model Raffle {
   heading        String
   subheading     String?
   theme          String        @default("cosmic")
-  animationStyle String        @default("slot_machine") @map("animation_style")
-  isActive       Boolean       @default(false) @map("is_active")
+  animationStyle   String        @default("slot_machine") @map("animation_style")
+  presentationMode Boolean       @default(false) @map("presentation_mode")
+  isActive         Boolean       @default(false) @map("is_active")
   createdById    String        @map("created_by_id")
   createdBy      AdminUser     @relation(fields: [createdById], references: [id])
   createdAt      DateTime      @default(now()) @map("created_at")
