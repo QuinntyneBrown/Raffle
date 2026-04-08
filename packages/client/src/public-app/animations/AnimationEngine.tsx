@@ -144,7 +144,9 @@ export function AnimationEngine({
           transition={variants.transition}
           className={`
             text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center
-            ${isFinished ? 'text-[var(--accent)]' : 'text-[var(--fg-primary)]'}
+            ${isFinished
+              ? 'bg-gradient-to-r from-[var(--winner-gradient-from)] via-[var(--winner-gradient-via)] to-[var(--winner-gradient-to)] bg-clip-text text-transparent motion-safe:animate-[gradientShift_3s_ease_infinite] [background-size:200%_auto]'
+              : 'text-[var(--fg-primary)]'}
           `}
         >
           {currentName}
