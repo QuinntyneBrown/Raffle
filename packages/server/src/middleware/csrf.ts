@@ -11,7 +11,7 @@ export function generateCsrfToken(req: Request, res: Response): string {
   res.cookie(CSRF_COOKIE_NAME, token, {
     httpOnly: true,
     secure: config.nodeEnv === 'production',
-    sameSite: 'strict',
+    sameSite: config.nodeEnv === 'production' ? 'none' : 'strict',
     signed: true,
     maxAge: 30 * 60 * 1000, // 30 minutes
     path: '/',

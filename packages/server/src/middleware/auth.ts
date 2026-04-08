@@ -34,7 +34,7 @@ export function setSessionCookie(res: Response, session: SessionData): void {
   res.cookie(SESSION_COOKIE_NAME, encoded, {
     httpOnly: true,
     secure: config.nodeEnv === 'production',
-    sameSite: 'strict',
+    sameSite: config.nodeEnv === 'production' ? 'none' : 'strict',
     signed: true,
     maxAge: SESSION_MAX_AGE_MS,
     path: '/',
@@ -45,7 +45,7 @@ export function clearSessionCookie(res: Response): void {
   res.clearCookie(SESSION_COOKIE_NAME, {
     httpOnly: true,
     secure: config.nodeEnv === 'production',
-    sameSite: 'strict',
+    sameSite: config.nodeEnv === 'production' ? 'none' : 'strict',
     signed: true,
     path: '/',
   });
