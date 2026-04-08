@@ -46,6 +46,7 @@ export interface ActiveRafflePublic {
   animationStyle: AnimationStyle;
   participantNames: string[];
   allDrawn: boolean;
+  hasDrawingStarted: boolean;
   lastDrawnName: string | null;
   totalCount: number;
   remainingCount: number;

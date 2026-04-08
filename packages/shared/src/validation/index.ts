@@ -24,6 +24,12 @@ export const createRaffleSchema = z.object({
     ),
 });
 
+export const selfRegistrationSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be 100 characters or less'),
+});
+
+export type SelfRegistrationInput = z.infer<typeof selfRegistrationSchema>;
+
 export const updateRaffleSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   heading: z.string().min(1).max(100).optional(),
