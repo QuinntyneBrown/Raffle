@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/lib/auth-context';
 import { ToastProvider } from '@/shared-ui/ToastContext';
 import { DrawPage } from '@/public-app/pages/DrawPage';
+import { QRCodePage } from '@/public-app/pages/QRCodePage';
+import { EntryPage } from '@/public-app/pages/EntryPage';
 import { LoginPage } from '@/admin-app/pages/LoginPage';
 import { DashboardPage } from '@/admin-app/pages/DashboardPage';
 import { CreateRafflePage } from '@/admin-app/pages/CreateRafflePage';
@@ -19,6 +21,8 @@ export default function App() {
         <Routes>
           {/* Public */}
           <Route path="/" element={<DrawPage />} />
+          <Route path="/qr" element={<QRCodePage />} />
+          <Route path="/enter" element={<EntryPage />} />
 
           {/* Admin auth */}
           <Route path="/admin/login" element={<LoginPage />} />
