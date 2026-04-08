@@ -42,7 +42,7 @@ export function QRCodePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]">
         <div className="text-center px-4 flex flex-col items-center gap-4 max-w-[400px]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent)]/25">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent)]/25" aria-hidden="true">
             <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
             <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
           </svg>
@@ -74,13 +74,13 @@ export function QRCodePage() {
 
         {/* Status badge */}
         {state === 'entries-closed' ? (
-          <div className="mb-6 px-4 py-2 rounded-full bg-[var(--error)]/10 border border-[var(--error)]/30">
+          <div className="mb-6 px-4 py-2 rounded-full bg-[var(--error)]/10 border border-[var(--error)]/30" role="status">
             <span className="font-geist text-sm text-[var(--error)] font-medium">
               Entries Closed — Drawing Has Started
             </span>
           </div>
         ) : (
-          <div className="mb-6 px-4 py-2 rounded-full bg-[var(--success)]/10 border border-[var(--success)]/30">
+          <div className="mb-6 px-4 py-2 rounded-full bg-[var(--success)]/10 border border-[var(--success)]/30" role="status">
             <span className="font-geist text-sm text-[var(--success)] font-medium">
               Accepting Entries
             </span>
@@ -119,7 +119,7 @@ export function QRCodePage() {
 
         {/* Participant count */}
         <div className="mt-8 flex items-center gap-2 text-[var(--fg-secondary)]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
             <circle cx="9" cy="7" r="4" />
             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />

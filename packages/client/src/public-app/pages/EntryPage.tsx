@@ -97,7 +97,7 @@ export function EntryPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]">
         <div className="text-center px-4 flex flex-col items-center gap-4 max-w-[400px]">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent)]/25">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent)]/25" aria-hidden="true">
             <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
             <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
           </svg>
@@ -129,9 +129,9 @@ export function EntryPage() {
 
         {/* Entries closed state */}
         {state === 'entries-closed' && (
-          <div className="w-full max-w-[400px] text-center flex flex-col items-center gap-4">
+          <div className="w-full max-w-[400px] text-center flex flex-col items-center gap-4" role="status">
             <div className="w-14 h-14 rounded-full bg-[var(--error)]/10 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--error)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--error)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <line x1="15" y1="9" x2="9" y2="15" />
                 <line x1="9" y1="9" x2="15" y2="15" />
@@ -150,7 +150,7 @@ export function EntryPage() {
         {state === 'success' && (
           <div className="w-full max-w-[400px] text-center flex flex-col items-center gap-4" role="status">
             <div className="w-14 h-14 rounded-full bg-[var(--success)]/10 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
