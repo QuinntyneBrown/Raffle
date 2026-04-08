@@ -32,30 +32,22 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex bg-[var(--bg-primary)]">
-      {/* Brand panel - visible on lg+ */}
-      <div className="hidden lg:flex lg:w-1/2 items-center justify-center bg-gradient-to-b from-purple-600 via-purple-500 to-purple-800 p-12">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[var(--bg-primary)]">
+      {/* Brand panel */}
+      <div className="flex items-center justify-center bg-gradient-to-b from-purple-600 via-purple-500 to-purple-800 p-8 lg:p-12 lg:w-1/2 lg:min-h-screen">
         <div className="max-w-md text-center">
-          <h1 className="font-anton text-6xl text-white mb-4 tracking-wide">
+          <h1 className="font-anton text-4xl lg:text-6xl text-white mb-2 lg:mb-4 tracking-wide">
             RAFFLE
           </h1>
-          <p className="text-lg text-purple-200">
+          <p className="text-sm lg:text-lg text-purple-200">
             Admin Portal
           </p>
         </div>
       </div>
 
       {/* Form panel */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-md">
-          {/* Mobile brand banner */}
-          <div className="lg:hidden text-center mb-8 -mx-6 sm:-mx-12 -mt-6 sm:-mt-12 p-8 bg-gradient-to-b from-purple-600 via-purple-500 to-purple-800">
-            <h1 className="font-anton text-4xl text-white tracking-wide">
-              RAFFLE
-            </h1>
-            <p className="text-sm text-purple-200 mt-1">Admin Portal</p>
-          </div>
-
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-8 lg:p-12">
+        <div className="w-full max-w-sm">
           <div className="mb-8">
             <h2 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">
               Welcome Back

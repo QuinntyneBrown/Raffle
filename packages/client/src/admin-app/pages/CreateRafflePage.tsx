@@ -93,7 +93,7 @@ export function CreateRafflePage() {
               label="Raffle Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Holiday Party 2026"
+              placeholder="e.g. Holiday Giveaway 2026"
               error={errors['name']}
             />
 

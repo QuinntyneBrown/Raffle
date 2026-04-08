@@ -97,7 +97,7 @@ export function RaffleDetailPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-2xl font-bold text-[var(--fg-primary)]">{raffle.name}</h1>
+          <h1 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">{raffle.name}</h1>
           <Badge variant={raffle.isActive ? 'active' : 'inactive'}>
             {raffle.isActive ? 'Active' : 'Inactive'}
           </Badge>
