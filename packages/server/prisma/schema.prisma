@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  raffles   Raffle[]
+
+  @@map("admin_users")
+}
+
+model Raffle {
+  id             String        @id @default(uuid())
+  name           String        @unique
+  heading        String
+  subheading     String?
+  theme          String        @default("cosmic")
+  animationStyle String        @default("slot_machine") @map("animation_style")
+  isActive       Boolean       @default(false) @map("is_active")
+  createdById    String        @map("created_by_id")
+  createdBy      AdminUser     @relation(fields: [createdById], references: [id])
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  participants   Participant[]
+
+  @@map("raffles")
+}
+
+model Participant {
+  id        String    @id @default(uuid())
+  raffleId  String    @map("raffle_id")
+  raffle    Raffle    @relation(fields: [raffleId], references: [id], onDelete: Cascade)
+  name      String
+  isDrawn   Boolean   @default(false) @map("is_drawn")
+  drawnAt   DateTime? @map("drawn_at")
+  drawOrder Int?      @map("draw_order")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@unique([raffleId, name])
+  @@index([raffleId, isDrawn])
+  @@map("participants")
+}

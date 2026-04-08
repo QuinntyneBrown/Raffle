@@ -1,0 +1,92 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+const navItems = [
+  {
+    to: '/admin',
+    label: 'Dashboard',
+    icon: (
+      // layout-dashboard icon
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
+      </svg>
+    ),
+    end: true,
+  },
+  {
+    to: '/admin/create',
+    label: 'Create Raffle',
+    icon: (
+      // circle-plus icon
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+        <line x1="8" y1="12" x2="16" y2="12" />
+      </svg>
+    ),
+    end: false,
+  },
+];
+
+export function Sidebar() {
+  return (
+    <aside className="hidden lg:flex lg:flex-col w-[260px] min-h-screen bg-[var(--bg-secondary)] border-r border-[var(--border)] p-6">
+      {/* Logo */}
+      <div className="mb-10">
+        <h1 className="font-anton text-2xl text-[var(--accent)] tracking-wider">
+          RAFFLE ADMIN
+        </h1>
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200
+              ${
+                isActive
+                  ? 'bg-[var(--accent-light)] text-[var(--accent)]'
+                  : 'text-[var(--fg-muted)] hover:text-[var(--fg-primary)] hover:bg-[var(--bg-primary)]/50'
+              }`
+            }
+          >
+            {item.icon}
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* Footer */}
+      <div className="pt-6 border-t border-[var(--border)]">
+        <p className="text-xs text-[var(--fg-muted)]">Raffle Admin v1.0</p>
+      </div>
+    </aside>
+  );
+}
