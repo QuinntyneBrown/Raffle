@@ -9,6 +9,20 @@ import type {
 
 type TxClient = Prisma.TransactionClient;
 
+export class EntriesClosedError extends Error {
+  constructor() {
+    super('Entries are closed — drawing has already started');
+    this.name = 'EntriesClosedError';
+  }
+}
+
+export class DuplicateEntryError extends Error {
+  constructor(name: string) {
+    super(`A participant named "${name}" is already registered`);
+    this.name = 'DuplicateEntryError';
+  }
+}
+
 function mapParticipant(p: {
   id: string;
   raffleId: string;
@@ -242,6 +256,8 @@ export async function getActiveRaffle(): Promise<ActiveRafflePublic | null> {
   const totalCount = raffle.participants.length;
   const remainingCount = raffle.participants.filter((p: { isDrawn: boolean }) => !p.isDrawn).length;
 
+  const hasDrawingStarted = raffle.participants.some((p: { isDrawn: boolean }) => p.isDrawn);
+
   return {
     id: raffle.id,
     heading: raffle.heading,
@@ -250,10 +266,58 @@ export async function getActiveRaffle(): Promise<ActiveRafflePublic | null> {
     animationStyle: raffle.animationStyle as ActiveRafflePublic['animationStyle'],
     participantNames: raffle.participants.map((p: { name: string }) => p.name),
     allDrawn,
+    hasDrawingStarted,
     lastDrawnName: lastDrawn?.name ?? null,
     totalCount,
     remainingCount,
   };
+}
+
+function stripHtmlTags(str: string): string {
+  return str.replace(/<[^>]*>/g, '');
+}
+
+export async function registerParticipant(name: string): Promise<{ name: string }> {
+  return prisma.$transaction(async (tx: TxClient) => {
+    const raffle = await tx.raffle.findFirst({
+      where: { isActive: true },
+      include: {
+        participants: {
+          where: { isDrawn: true },
+          select: { id: true },
+          take: 1,
+        },
+      },
+    });
+
+    if (!raffle) {
+      throw new Error('No active raffle found');
+    }
+
+    if (raffle.participants.length > 0) {
+      throw new EntriesClosedError();
+    }
+
+    const sanitizedName = stripHtmlTags(name.trim());
+
+    try {
+      const participant = await tx.participant.create({
+        data: {
+          raffleId: raffle.id,
+          name: sanitizedName,
+        },
+      });
+      return { name: participant.name };
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2002'
+      ) {
+        throw new DuplicateEntryError(sanitizedName);
+      }
+      throw error;
+    }
+  });
 }
 
 function formatRaffleWithParticipants(raffle: {

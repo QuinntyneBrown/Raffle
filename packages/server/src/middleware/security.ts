@@ -42,6 +42,19 @@ export const generalLimiter = rateLimit({
   },
 });
 
+export const registrationLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: config.nodeEnv === 'development' ? 100 : 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: {
+      code: 'RATE_LIMIT_EXCEEDED',
+      message: 'Too many registration attempts, please try again later',
+    },
+  },
+});
+
 export const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: config.nodeEnv === 'development' ? 100 : 20,
