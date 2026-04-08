@@ -1,0 +1,149 @@
+name: Deploy to Azure (Ultra-Cheap)
+
+# Deploys to Azure on every commit to main.
+# Architecture: Static Web Apps (Free) + App Service (F1 Free) + PostgreSQL Flexible Server (B1ms)
+# See docs/azure-deployment-cheapest.md for full details.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  NODE_VERSION: "20"
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Build, lint, and test the entire monorepo
+  # ──────────────────────────────────────────────
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm run lint
+
+      - run: npm run test
+
+      # Upload client dist for the SWA deploy job
+      - uses: actions/upload-artifact@v4
+        with:
+          name: client-dist
+          path: packages/client/dist
+          retention-days: 1
+
+      # Prepare a self-contained server deployment package.
+      # Includes production node_modules (with workspace links resolved),
+      # compiled output, and Prisma migration files.
+      - name: Prepare server deployment package
+        run: |
+          npm prune --omit=dev
+
+          mkdir -p _deploy/packages/server
+          mkdir -p _deploy/packages/shared
+
+          # Server compiled output + Prisma migrations
+          cp -r packages/server/dist     _deploy/packages/server/dist
+          cp -r packages/server/prisma   _deploy/packages/server/prisma
+          cp    packages/server/package.json _deploy/packages/server/package.json
+
+          # Shared package (runtime dependency of server)
+          cp -r packages/shared/dist     _deploy/packages/shared/dist
+          cp    packages/shared/package.json _deploy/packages/shared/package.json
+
+          # Root workspace config + production dependencies
+          cp package.json     _deploy/package.json
+          cp package-lock.json _deploy/package-lock.json
+          cp -r node_modules  _deploy/node_modules
+
+          cd _deploy && zip -r ../server-package.zip . -q
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: server-package
+          path: server-package.zip
+          retention-days: 1
+
+  # ──────────────────────────────────────────────
+  # Deploy React SPA → Azure Static Web Apps
+  # ──────────────────────────────────────────────
+  deploy-client:
+    name: Deploy Client (Static Web Apps)
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: client-dist
+          path: client-dist
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.SWA_DEPLOYMENT_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          skip_app_build: true
+          app_location: client-dist
+
+  # ──────────────────────────────────────────────
+  # Deploy Express API → Azure App Service (F1)
+  # ──────────────────────────────────────────────
+  deploy-server:
+    name: Deploy Server (App Service)
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: server-package
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Configure App Service startup to run migrations then start
+      - name: Configure startup command
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az webapp config set \
+              --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+              --name ${{ vars.AZURE_API_APP_NAME }} \
+              --startup-file "npx prisma migrate deploy --schema=packages/server/prisma/schema.prisma && node packages/server/dist/index.js"
+
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_API_APP_NAME }}
+          package: server-package.zip
+
+      # Quick smoke test — health endpoint
+      - name: Verify deployment
+        run: |
+          echo "Waiting for app to start..."
+          sleep 30
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://${{ vars.AZURE_API_APP_NAME }}.azurewebsites.net/api/health" \
+            --max-time 60 --retry 3 --retry-delay 10)
+          if [ "$STATUS" -ne 200 ]; then
+            echo "::warning::Health check returned HTTP $STATUS (may be cold-starting on F1 free tier)"
+          else
+            echo "Health check passed (HTTP 200)"
+          fi
