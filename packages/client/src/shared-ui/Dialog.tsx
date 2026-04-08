@@ -99,16 +99,16 @@ export function Dialog({ open, onClose, title, description, icon, children, acti
         {description && (
           <p
             id="dialog-description"
-            className="font-geist mt-2 text-sm text-[var(--fg-secondary)]"
+            className="font-geist mt-5 text-sm text-[var(--fg-secondary)]"
           >
             {description}
           </p>
         )}
 
-        {children && <div className="mt-4">{children}</div>}
+        {children && <div className="mt-5">{children}</div>}
 
         {actions && (
-          <div className="mt-6 flex justify-end gap-3">
+          <div className="mt-5 flex justify-end gap-2.5">
             {actions}
           </div>
         )}

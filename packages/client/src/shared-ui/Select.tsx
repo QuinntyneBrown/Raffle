@@ -47,7 +47,7 @@ export function Select({
         ))}
       </select>
       {error && (
-        <p className="mt-1 text-xs text-[var(--error)]">{error}</p>
+        <p className="mt-1.5 text-xs text-[var(--error)]">{error}</p>
       )}
     </div>
   );
