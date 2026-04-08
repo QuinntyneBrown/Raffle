@@ -75,10 +75,10 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="hidden lg:flex lg:flex-col w-[260px] min-h-screen bg-[var(--bg-secondary)] border-r border-[var(--border)] p-6">
+    <aside className="hidden lg:flex lg:flex-col w-[260px] min-h-screen bg-[var(--bg-secondary)] border-r border-[var(--border)] py-6">
       {/* Logo */}
-      <div className="mb-10">
-        <h1 className="font-anton text-2xl text-[var(--accent)] tracking-wider">
+      <div className="px-5 mb-4">
+        <h1 className="font-anton text-lg text-[var(--accent)] tracking-[3px]">
           RAFFLE ADMIN
         </h1>
       </div>
@@ -91,7 +91,7 @@ export function Sidebar() {
             to={item.to}
             end={item.end}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200
+              `flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium transition-colors duration-200
               ${
                 isActive
                   ? 'bg-[var(--accent-light)] text-[var(--accent)]'
@@ -106,7 +106,7 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="pt-6 border-t border-[var(--border)]">
+      <div className="px-5 pt-6 border-t border-[var(--border)]">
         <p className="text-xs text-[var(--fg-muted)]">Raffle Admin v1.0</p>
       </div>
     </aside>
