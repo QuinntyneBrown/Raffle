@@ -34,7 +34,7 @@ export function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-[var(--bg-primary)]">
       {/* Brand panel */}
-      <div className="flex items-center justify-center bg-gradient-to-b from-purple-600 via-purple-500 to-purple-800 p-8 lg:p-12 lg:w-1/2 lg:min-h-screen">
+      <div className="flex items-center justify-center bg-gradient-to-b from-[#7C3AED] via-[#A855F7] to-[#6D28D9] p-8 lg:p-12 lg:w-1/2 lg:min-h-screen relative overflow-hidden">
         <div className="max-w-md text-center">
           <h1 className="font-anton text-4xl lg:text-[64px] text-white mb-2 lg:mb-4 tracking-[6px]">
             RAFFLE
@@ -94,7 +94,6 @@ export function LoginPage() {
             <Button
               type="submit"
               fullWidth
-              size="lg"
               loading={loading}
             >
               Sign In
