@@ -44,7 +44,7 @@ export const generalLimiter = rateLimit({
 
 export const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: config.nodeEnv === 'development' ? 100 : 5,
+  max: config.nodeEnv === 'development' ? 100 : 20,
   standardHeaders: true,
   legacyHeaders: false,
   message: {

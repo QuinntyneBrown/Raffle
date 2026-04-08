@@ -15,7 +15,7 @@ export class DashboardPage {
 
   async navigateToCreateRaffle() {
     await this.newRaffleButton.click();
-    await expect(this.page.getByText(/create.*raffle/i)).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: /create.*raffle/i })).toBeVisible();
   }
 
   async expectRaffleVisible(name: string) {

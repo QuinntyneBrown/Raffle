@@ -6,7 +6,7 @@ export class PublicDrawPage {
   readonly muteButton: Locator;
 
   constructor(private readonly page: Page) {
-    this.noActiveRaffleMessage = page.getByText(/no.*raffle.*active/i);
+    this.noActiveRaffleMessage = page.getByText(/no active raffle/i);
     this.drawButton = page.getByRole('button', { name: /draw/i });
     this.muteButton = page.getByRole('button', { name: /mute|sound/i });
   }

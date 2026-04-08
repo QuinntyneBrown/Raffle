@@ -8,6 +8,7 @@ import { DashboardPage } from '@/admin-app/pages/DashboardPage';
 import { CreateRafflePage } from '@/admin-app/pages/CreateRafflePage';
 import { EditRafflePage } from '@/admin-app/pages/EditRafflePage';
 import { RaffleDetailPage } from '@/admin-app/pages/RaffleDetailPage';
+import { SettingsPage } from '@/admin-app/pages/SettingsPage';
 import { AdminLayout } from '@/admin-app/components/AdminLayout';
 import { ProtectedRoute } from '@/admin-app/auth/ProtectedRoute';
 
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="create" element={<CreateRafflePage />} />
             <Route path="raffles/:id" element={<RaffleDetailPage />} />
             <Route path="raffles/:id/edit" element={<EditRafflePage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </ToastProvider>

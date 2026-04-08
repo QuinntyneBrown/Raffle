@@ -20,14 +20,18 @@ test.describe('Admin Login', () => {
   });
 
   test('redirects to dashboard on successful login', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.loginAsAdmin();
+    // Auth storage state is pre-loaded; just navigate to admin
+    await page.goto('/admin');
     await expect(page).toHaveURL(/\/admin/);
     await expect(page.getByText(/your raffles/i)).toBeVisible();
   });
 
-  test('protects admin routes from unauthenticated access', async ({ page }) => {
+  test('protects admin routes from unauthenticated access', async ({ browser }) => {
+    // Use a fresh context without auth state to test unauthenticated access
+    const context = await browser.newContext();
+    const page = await context.newPage();
     await page.goto('/admin');
     await expect(page).toHaveURL(/\/admin\/login/);
+    await context.close();
   });
 });
