@@ -32,6 +32,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Generate Prisma client
+        run: npx prisma generate --schema=packages/server/prisma/schema.prisma
+
       - run: npm run build
 
       - run: npm run lint
