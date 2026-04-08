@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import type { ActiveRafflePublic } from '@raffle/shared';
 import { getActiveRaffle } from '@/lib/api';
 import { Spinner } from '@/shared-ui/Spinner';
 import { ThemeRenderer } from '../themes/ThemeRenderer';
 
+const POLL_INTERVAL_MS = 10_000;
+
 type PageState = 'loading' | 'no-active-raffle' | 'accepting-entries' | 'entries-closed';
 
 export function QRCodePage() {
   const [raffle, setRaffle] = useState<ActiveRafflePublic | null>(null);
   const [state, setState] = useState<PageState>('loading');
+  const stateRef = useRef(state);
+  stateRef.current = state;
 
   useEffect(() => {
     async function load() {
@@ -27,6 +31,26 @@ export function QRCodePage() {
     }
     load();
   }, []);
+
+  useEffect(() => {
+    if (state !== 'accepting-entries') return;
+
+    const id = setInterval(async () => {
+      if (stateRef.current !== 'accepting-entries') return;
+      try {
+        const data = await getActiveRaffle();
+        if (!data) return;
+        setRaffle(data);
+        if (data.hasDrawingStarted) {
+          setState('entries-closed');
+        }
+      } catch {
+        // Silently ignore poll failures — next poll will retry
+      }
+    }, POLL_INTERVAL_MS);
+
+    return () => clearInterval(id);
+  }, [state]);
 
   const entryUrl = `${window.location.origin}/enter`;
 

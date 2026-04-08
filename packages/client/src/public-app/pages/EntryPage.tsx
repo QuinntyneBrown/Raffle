@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { selfRegistrationSchema } from '@raffle/shared';
 import type { ActiveRafflePublic } from '@raffle/shared';
 import { getActiveRaffle, registerParticipant, ApiError } from '@/lib/api';
 import { Spinner } from '@/shared-ui/Spinner';
 import { ThemeRenderer } from '../themes/ThemeRenderer';
 
+const POLL_INTERVAL_MS = 10_000;
+
 type PageState = 'loading' | 'no-active-raffle' | 'form' | 'submitting' | 'success' | 'entries-closed';
 
 export function EntryPage() {
   const [raffle, setRaffle] = useState<ActiveRafflePublic | null>(null);
   const [state, setState] = useState<PageState>('loading');
+  const stateRef = useRef(state);
+  stateRef.current = state;
   const [name, setName] = useState('');
   const [registeredName, setRegisteredName] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +35,26 @@ export function EntryPage() {
     }
     load();
   }, []);
+
+  useEffect(() => {
+    if (state !== 'form') return;
+
+    const id = setInterval(async () => {
+      if (stateRef.current !== 'form') return;
+      try {
+        const data = await getActiveRaffle();
+        if (!data) return;
+        setRaffle(data);
+        if (data.hasDrawingStarted) {
+          setState('entries-closed');
+        }
+      } catch {
+        // Silently ignore poll failures
+      }
+    }, POLL_INTERVAL_MS);
+
+    return () => clearInterval(id);
+  }, [state]);
 
   function validateName(value: string): string | null {
     const result = selfRegistrationSchema.safeParse({ name: value });
