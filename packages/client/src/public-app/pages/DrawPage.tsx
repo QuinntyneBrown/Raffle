@@ -261,7 +261,7 @@ export function DrawPage() {
         <button
           onClick={handleDraw}
           disabled={state !== 'ready'}
-          className="
+          className={`
             font-anton uppercase
             px-12 py-5 sm:px-12 sm:py-5
             text-xl sm:text-2xl tracking-[2px]
@@ -274,7 +274,8 @@ export function DrawPage() {
             disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
             focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/30
             active:scale-95
-          "
+            ${state === 'ready' ? 'motion-safe:animate-[glowPulse_2.5s_ease-in-out_infinite]' : ''}
+          `}
           aria-live="polite"
         >
           {state === 'all-drawn'
