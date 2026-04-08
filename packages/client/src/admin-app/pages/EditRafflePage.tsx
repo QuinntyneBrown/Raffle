@@ -125,13 +125,13 @@ export function EditRafflePage() {
 
   return (
     <div>
-      <h1 className="font-anton text-[28px] text-[var(--fg-primary)] tracking-[1px] mb-8">Edit Raffle</h1>
+      <h1 className="font-anton text-[28px] text-[var(--fg-primary)] tracking-[1px] mb-6">Edit Raffle</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left column */}
-          <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Raffle Details</h2>
+          <div className="space-y-5">
+            <h2 className="text-base font-semibold text-[var(--fg-primary)]">Raffle Details</h2>
             <Input
               label="Raffle Name"
               value={name}
@@ -180,8 +180,8 @@ export function EditRafflePage() {
           </div>
 
           {/* Right column */}
-          <div className="space-y-8">
-            <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Theme & Animation</h2>
+          <div className="space-y-5">
+            <h2 className="text-base font-semibold text-[var(--fg-primary)]">Theme & Animation</h2>
             {/* Theme picker */}
             <div>
               <label className="block text-[13px] font-medium text-[var(--fg-secondary)] mb-3">
@@ -271,7 +271,7 @@ export function EditRafflePage() {
         </div>
 
         {/* Bottom actions */}
-        <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-[var(--border)]">
+        <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-[var(--border)]">
           <Button variant="secondary" type="button" onClick={() => navigate(`/admin/raffles/${id}`)}>
             Cancel
           </Button>

@@ -134,15 +134,15 @@ export function RaffleDetailPage() {
       {/* Stats cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
-          <p className="text-[32px] font-bold text-[var(--accent)] font-mono">{totalParticipants}</p>
+          <p className="text-[32px] font-bold text-[var(--accent)] font-geist-mono">{totalParticipants}</p>
           <p className="text-[13px] text-[var(--fg-muted)] mt-1">Total Participants</p>
         </div>
         <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
-          <p className="text-[32px] font-bold text-[var(--success)] font-mono">{drawnCount}</p>
+          <p className="text-[32px] font-bold text-[var(--success)] font-geist-mono">{drawnCount}</p>
           <p className="text-[13px] text-[var(--fg-muted)] mt-1">Names Drawn</p>
         </div>
         <div className="bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl p-5">
-          <p className="text-[32px] font-bold text-[var(--fg-primary)] font-mono">{remainingCount}</p>
+          <p className="text-[32px] font-bold text-[var(--fg-primary)] font-geist-mono">{remainingCount}</p>
           <p className="text-[13px] text-[var(--fg-muted)] mt-1">Remaining</p>
         </div>
       </div>
@@ -188,7 +188,7 @@ export function RaffleDetailPage() {
                   className="flex items-center justify-between py-2 px-3 rounded-lg bg-[var(--bg-secondary)]"
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="text-[13px] font-semibold text-[var(--accent)] font-mono">
+                    <span className="text-[13px] font-semibold text-[var(--accent)] font-geist-mono">
                       #{index + 1}
                     </span>
                     <span className="text-sm text-[var(--fg-primary)]">{p.name}</span>

@@ -135,15 +135,15 @@ export function DrawPage() {
   if (state === 'no-active-raffle' || !raffle) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]">
-        <div className="text-center px-4 flex flex-col items-center gap-5">
-          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--fg-muted)]">
+        <div className="text-center px-4 flex flex-col items-center gap-4 sm:gap-5 max-w-[300px] sm:max-w-[400px]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="sm:w-16 sm:h-16 text-[var(--accent)]/25">
             <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
             <path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/>
           </svg>
-          <h1 className="font-anton text-3xl sm:text-4xl md:text-5xl text-[var(--fg-primary)] tracking-wide">
+          <h1 className="font-anton text-[28px] sm:text-4xl text-[var(--fg-primary)] tracking-[2px]">
             No Active Raffle
           </h1>
-          <p className="text-base sm:text-lg text-[var(--fg-muted)] max-w-sm">
+          <p className="font-geist text-sm sm:text-base text-[var(--fg-secondary)] max-w-[260px] sm:max-w-[320px] text-center">
             There is no raffle currently running. Please check back later!
           </p>
         </div>
@@ -160,15 +160,15 @@ export function DrawPage() {
         {/* Mute toggle */}
         <button
           onClick={toggleMute}
-          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors z-10"
+          className="absolute top-3 right-3 sm:top-6 sm:right-6 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors z-10"
           aria-label={isMuted ? 'Unmute sound' : 'Mute sound'}
         >
           {isMuted ? (
             // volume-x icon
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -184,8 +184,8 @@ export function DrawPage() {
             // volume-2 icon
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -201,13 +201,13 @@ export function DrawPage() {
         </button>
 
         {/* Heading */}
-        <h1 className="font-anton text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center text-[var(--fg-primary)] mb-2 tracking-wide">
+        <h1 className="font-anton text-[28px] sm:text-[48px] text-center text-[var(--fg-primary)] mb-2 tracking-[2px] sm:tracking-[3px]">
           {raffle.heading}
         </h1>
 
         {/* Subheading */}
         {raffle.subheading && (
-          <p className="text-lg sm:text-xl md:text-2xl text-center text-[var(--fg-secondary)] mb-8 sm:mb-12 max-w-2xl">
+          <p className="font-geist text-sm sm:text-lg text-center text-[var(--fg-secondary)] mb-8 sm:mb-12 max-w-2xl">
             {raffle.subheading}
           </p>
         )}
@@ -215,12 +215,11 @@ export function DrawPage() {
         {/* Name display area */}
         <div
           className="
-            w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto
+            w-full sm:max-w-[500px] mx-auto
             border border-[var(--accent)]/25 rounded-2xl
             bg-[radial-gradient(circle,#1C1A20_30%,#151318_100%)]
-            px-6 py-12 sm:py-16 md:py-20
-            mb-8 sm:mb-12
-            min-h-[160px] sm:min-h-[180px]
+            h-[140px] sm:h-[180px]
+            mb-5 sm:mb-10
             flex items-center justify-center
             shadow-[0_0_80px_6px_rgba(168,85,247,0.16),0_12px_160px_rgba(124,58,237,0.07),0_0_40px_rgba(168,85,247,0.06)]
           "
@@ -239,12 +238,12 @@ export function DrawPage() {
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
-              <p className="font-anton text-4xl sm:text-5xl md:text-6xl text-[var(--fg-muted)] tracking-wider">
+              <p className="font-anton text-4xl sm:text-[56px] text-[var(--fg-muted)] tracking-[2px] sm:tracking-[3px]">
                 ALL DRAWN!
               </p>
             </div>
           ) : (
-            <p className="font-anton text-4xl sm:text-5xl md:text-6xl text-[var(--fg-muted)] tracking-wider">
+            <p className="font-anton text-4xl sm:text-[56px] text-[var(--fg-muted)] tracking-[2px] sm:tracking-[3px]">
               ???
             </p>
           )}
@@ -256,7 +255,7 @@ export function DrawPage() {
           disabled={state !== 'ready'}
           className="
             font-anton uppercase
-            px-12 py-5 sm:px-16 sm:py-5
+            px-12 py-5 sm:px-12 sm:py-5
             text-xl sm:text-2xl tracking-[2px]
             rounded-full
             bg-gradient-to-b from-[var(--accent)] to-[var(--accent-hover)]
