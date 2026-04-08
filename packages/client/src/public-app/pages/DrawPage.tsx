@@ -287,13 +287,30 @@ export function DrawPage() {
           `}
           aria-live="polite"
         >
-          {state === 'all-drawn'
-            ? 'All Names Drawn'
-            : state === 'cycling'
-              ? 'Drawing...'
-              : state === 'winner-revealed'
-                ? 'Revealing...'
-                : 'Draw a Name'}
+          {state === 'all-drawn' ? (
+            'All Names Drawn'
+          ) : state === 'cycling' ? (
+            <span className="inline-flex items-center gap-3">
+              <svg
+                className="w-5 h-5 sm:w-6 sm:h-6 motion-safe:animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="12" cy="12" r="10"
+                  stroke="currentColor" strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray="32" strokeDashoffset="8"
+                />
+              </svg>
+              Drawing...
+            </span>
+          ) : state === 'winner-revealed' ? (
+            'Revealing...'
+          ) : (
+            'Draw a Name'
+          )}
         </button>
 
         {/* Winner history */}
