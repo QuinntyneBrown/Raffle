@@ -21,6 +21,8 @@ const themeDefinitions: Record<Theme, Record<string, string>> = {
     '--success': '#22C55E',
     '--error': '#EF4444',
     '--warning': '#F59E0B',
+    '--accent-glow-soft': 'rgba(168, 85, 247, 0.35)',
+    '--accent-glow-strong': 'rgba(168, 85, 247, 0.7)',
   },
   festive: {
     '--bg-primary': '#1A0A0A',
@@ -37,6 +39,8 @@ const themeDefinitions: Record<Theme, Record<string, string>> = {
     '--success': '#22C55E',
     '--error': '#F87171',
     '--warning': '#F59E0B',
+    '--accent-glow-soft': 'rgba(239, 68, 68, 0.35)',
+    '--accent-glow-strong': 'rgba(239, 68, 68, 0.7)',
   },
   corporate: {
     '--bg-primary': '#0A0A1A',
@@ -53,6 +57,8 @@ const themeDefinitions: Record<Theme, Record<string, string>> = {
     '--success': '#22C55E',
     '--error': '#EF4444',
     '--warning': '#F59E0B',
+    '--accent-glow-soft': 'rgba(59, 130, 246, 0.35)',
+    '--accent-glow-strong': 'rgba(59, 130, 246, 0.7)',
   },
 };
 
