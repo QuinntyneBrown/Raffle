@@ -21,7 +21,7 @@ export function AdminLayout() {
         </div>
 
         {/* Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:py-8 lg:px-10 overflow-auto">
           <Outlet />
         </main>
       </div>

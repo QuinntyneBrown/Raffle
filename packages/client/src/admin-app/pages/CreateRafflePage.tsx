@@ -82,10 +82,10 @@ export function CreateRafflePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[var(--fg-primary)] mb-8">Create New Raffle</h1>
+      <h1 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide mb-8">Create New Raffle</h1>
 
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left column */}
           <div className="space-y-5">
             <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Raffle Details</h2>

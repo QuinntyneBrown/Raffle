@@ -5,11 +5,12 @@ interface DialogProps {
   onClose: () => void;
   title: string;
   description?: string;
+  icon?: React.ReactNode;
   children?: React.ReactNode;
   actions?: React.ReactNode;
 }
 
-export function Dialog({ open, onClose, title, description, children, actions }: DialogProps) {
+export function Dialog({ open, onClose, title, description, icon, children, actions }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
@@ -84,8 +85,10 @@ export function Dialog({ open, onClose, title, description, children, actions }:
         aria-modal="true"
         aria-labelledby="dialog-title"
         aria-describedby={description ? 'dialog-description' : undefined}
-        className="relative z-10 w-full max-w-md rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] p-6 shadow-2xl"
+        className="relative z-10 w-full max-w-[480px] rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border)] p-6 shadow-2xl"
       >
+        {icon && <div className="mb-5">{icon}</div>}
+
         <h2
           id="dialog-title"
           className="text-lg font-semibold text-[var(--fg-primary)]"

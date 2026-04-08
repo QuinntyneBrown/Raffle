@@ -31,6 +31,7 @@ export function ConfirmDialog({
       onClose={onClose}
       title={title}
       description={description}
+      icon={icon}
       actions={
         <>
           <Button variant="secondary" onClick={onClose} disabled={loading}>
@@ -45,12 +46,6 @@ export function ConfirmDialog({
           </Button>
         </>
       }
-    >
-      {icon && (
-        <div className="flex justify-center mb-4 text-[var(--warning)]">
-          {icon}
-        </div>
-      )}
-    </Dialog>
+    />
   );
 }
