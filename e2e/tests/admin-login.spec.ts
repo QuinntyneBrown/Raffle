@@ -1,28 +1,27 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Admin Login', () => {
   test('shows login form', async ({ page }) => {
-    await page.goto('/admin/login');
-    await expect(page.getByRole('heading', { name: /welcome/i })).toBeVisible();
-    await expect(page.getByLabel(/email/i)).toBeVisible();
-    await expect(page.getByLabel(/password/i)).toBeVisible();
-    await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await expect(loginPage.heading).toBeVisible();
+    await expect(loginPage.emailInput).toBeVisible();
+    await expect(loginPage.passwordInput).toBeVisible();
+    await expect(loginPage.signInButton).toBeVisible();
   });
 
   test('shows error on invalid credentials', async ({ page }) => {
-    await page.goto('/admin/login');
-    await page.getByLabel(/email/i).fill('wrong@example.com');
-    await page.getByLabel(/password/i).fill('wrongpassword');
-    await page.getByRole('button', { name: /sign in/i }).click();
-    await expect(page.getByText(/invalid/i)).toBeVisible();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('wrong@example.com', 'wrongpassword');
+    await loginPage.expectErrorVisible();
   });
 
   test('redirects to dashboard on successful login', async ({ page }) => {
-    await page.goto('/admin/login');
-    await page.getByLabel(/email/i).fill('admin@raffle.app');
-    await page.getByLabel(/password/i).fill('password123');
-    await page.getByRole('button', { name: /sign in/i }).click();
-    await expect(page).toHaveURL(/\/admin/, { timeout: 5000 });
+    const loginPage = new LoginPage(page);
+    await loginPage.loginAsAdmin();
+    await expect(page).toHaveURL(/\/admin/);
     await expect(page.getByText(/your raffles/i)).toBeVisible();
   });
 
