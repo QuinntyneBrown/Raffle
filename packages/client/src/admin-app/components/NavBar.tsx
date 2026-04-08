@@ -14,17 +14,11 @@ export function NavBar() {
   };
 
   return (
-    <header className="h-16 border-b border-[var(--border)] bg-[var(--bg-secondary)] flex items-center px-4 sm:px-6">
-      {/* Logo - center on mobile, hidden on lg+ (shown in sidebar) */}
-      <div className="flex-1 lg:hidden" />
-      <div className="lg:hidden">
-        <h1 className="font-anton text-xl text-[var(--accent)] tracking-wider">
-          RAFFLE
-        </h1>
-      </div>
-
-      {/* Spacer */}
-      <div className="flex-1" />
+    <header className="h-16 border-b border-[var(--border)] bg-[var(--bg-secondary)] flex items-center justify-between px-8">
+      {/* Logo */}
+      <h1 className="font-anton text-xl text-[var(--accent)] tracking-wider">
+        RAFFLE
+      </h1>
 
       {/* User info + logout */}
       <div className="flex items-center gap-4">

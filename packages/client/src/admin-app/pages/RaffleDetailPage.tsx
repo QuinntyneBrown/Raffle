@@ -207,26 +207,29 @@ export function RaffleDetailPage() {
         open={resetDialogOpen}
         onClose={() => setResetDialogOpen(false)}
         onConfirm={handleReset}
-        title="Reset All Draws"
-        description="Are you sure you want to reset all draws? This will mark all participants as undrawn and clear the draw history."
+        title="Reset Raffle Draws"
+        description="Are you sure you want to reset all draws? All draw history will be cleared and all names will be returned to the available pool."
         confirmLabel="Reset Draws"
         confirmVariant="danger"
         loading={resetLoading}
         icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-            <path d="M3 3v5h5" />
-          </svg>
+          <div className="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-yellow-500"
+            >
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          </div>
         }
       />
     </div>

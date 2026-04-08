@@ -57,8 +57,8 @@ export function LoginPage() {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-[var(--fg-primary)]">
-              Welcome back
+            <h2 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">
+              Welcome Back
             </h2>
             <p className="text-sm text-[var(--fg-muted)] mt-1">
               Sign in to manage your raffles
@@ -82,7 +82,7 @@ export function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@example.com"
+              placeholder="admin@company.com"
               required
               autoComplete="email"
             />
