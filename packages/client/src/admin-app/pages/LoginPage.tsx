@@ -48,11 +48,11 @@ export function LoginPage() {
       {/* Form panel */}
       <div className="flex-1 flex items-center justify-center p-6 sm:p-8 lg:p-12">
         <div className="w-full max-w-sm">
-          <div className="mb-8">
+          <div className="mb-6">
             <h2 className="font-anton text-3xl text-[var(--fg-primary)] tracking-wide">
               Welcome Back
             </h2>
-            <p className="text-sm text-[var(--fg-muted)] mt-1">
+            <p className="text-sm text-[var(--fg-muted)] mt-2">
               Sign in to manage your raffles
             </p>
           </div>
@@ -68,7 +68,7 @@ export function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               label="Email"
               type="email"

@@ -130,7 +130,7 @@ export function EditRafflePage() {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left column */}
-          <div className="space-y-5">
+          <div className="space-y-6">
             <h2 className="text-lg font-semibold text-[var(--fg-primary)]">Raffle Details</h2>
             <Input
               label="Raffle Name"
