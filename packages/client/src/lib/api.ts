@@ -5,6 +5,7 @@ import type {
   DrawResult,
   LoginInput,
   RaffleWithCounts,
+  SelfRegistrationInput,
   UpdateRaffleInput,
 } from '@raffle/shared';
 
@@ -141,6 +142,11 @@ export async function getActiveRaffle(): Promise<ActiveRafflePublic | null> {
 export async function drawName(): Promise<DrawResult> {
   const data = await post<{ result: DrawResult }>('/api/public/draw');
   return data.result;
+}
+
+export async function registerParticipant(name: string): Promise<{ name: string }> {
+  const data = await post<{ participant: { name: string } }>('/api/public/register', { name } as SelfRegistrationInput);
+  return data.participant;
 }
 
 // ── Admin Auth ────────────────────────────────────────────────
