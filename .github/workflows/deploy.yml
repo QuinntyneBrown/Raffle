@@ -128,18 +128,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      # Run Prisma migrations against production database before deploying
+      # Run Prisma migrations against production database
       - name: Run database migrations
         run: |
           unzip -q server-package.zip -d _migrate
-          npm install prisma@5 --no-save --prefix _migrate
-          DATABASE_URL=$(az webapp config appsettings list \
+          npm install --no-save prisma@5
+          export DATABASE_URL=$(az webapp config appsettings list \
             --name ${{ vars.AZURE_API_APP_NAME }} \
             --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
             --query "[?name=='DATABASE_URL'].value" -o tsv)
-          export DATABASE_URL
-          cd _migrate
-          npx prisma migrate deploy --schema=packages/server/prisma/schema.prisma
+          npx prisma migrate deploy --schema=_migrate/packages/server/prisma/schema.prisma
 
       - name: Deploy to App Service
         uses: azure/webapps-deploy@v3
