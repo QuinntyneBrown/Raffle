@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "node packages/server/dist/index.js",
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",

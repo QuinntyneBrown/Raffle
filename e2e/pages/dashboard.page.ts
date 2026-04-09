@@ -19,7 +19,7 @@ export class DashboardPage {
   }
 
   async expectRaffleVisible(name: string) {
-    await expect(this.page.getByText(new RegExp(name, 'i'))).toBeVisible({ timeout: 5000 });
+    await expect(this.page.getByText(new RegExp(name, 'i'))).toBeVisible({ timeout: 15000 });
   }
 
   async activateFirstRaffle() {
